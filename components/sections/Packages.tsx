@@ -1,3 +1,5 @@
+'use client'
+
 import { Check, MessageCircle } from 'lucide-react'
 
 interface Props {
@@ -40,77 +42,91 @@ export default function Packages({ locale, messages }: Props) {
   }
 
   return (
-    <section id="packages" className="py-24 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="packages" style={{ padding: '1rem 0', background: '#0a0a0a' }}>
+      <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="section-tag">{t.tag as string}</p>
-          <h2 className="section-title">
+        <div style={{ textAlign: 'center', marginBottom: '4rem', paddingTop: '50px' }}>
+          <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>{t.tag as string}</p>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, lineHeight: 1.05, textTransform: 'uppercase', letterSpacing: '-0.02em', color: 'white', margin: 0 }}>
             {(t.title as string).split('\n').map((line, i) => (
-              <span key={i} className="block">{line}</span>
+              <span key={i} style={{ display: 'block' }}>{line}</span>
             ))}
           </h2>
-          <p className="text-gray-400 mt-4 text-lg max-w-xl mx-auto">{t.subtitle as string}</p>
+          <p style={{ color: '#9ca3af', marginTop: '1rem', fontSize: '1.1rem', maxWidth: 'none', margin: '1rem auto 0', whiteSpace: 'nowrap' }}>{t.subtitle as string}</p>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {items.map((pkg) => (
-            <div
-              key={pkg.id}
-              className={`relative card rounded-none border-2 ${colorMap[pkg.color]} flex flex-col transition-transform hover:-translate-y-1 duration-200`}
-            >
-              {/* Popular badge */}
-              {pkg.color === 'red' && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className={`${badgeMap[pkg.color]} text-xs font-black px-4 py-1 tracking-widest uppercase`}>
-                    {t.popular as string}
-                  </span>
-                </div>
-              )}
-
-              {/* Card header */}
-              <div className={`p-6 border-b border-white/10`}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className={`text-xs font-black px-3 py-1 ${badgeMap[pkg.color]} tracking-widest`}>
-                    {pkg.name}
-                  </span>
-                  <span className="text-gray-400 text-sm font-semibold">{pkg.duration}</span>
-                </div>
-                <div className="mt-4">
-                  <span className="text-5xl font-black text-white">{pkg.price}</span>
-                  <span className="text-2xl font-bold text-gray-300 ml-1">{currency}</span>
-                </div>
-                <p className="text-gray-400 text-sm mt-3 leading-relaxed">{pkg.description}</p>
-              </div>
-
-              {/* Features */}
-              <div className="p-6 flex-1 flex flex-col gap-3">
-                {pkg.features.map((key) => (
-                  <div key={key} className="flex items-start gap-3">
-                    <Check size={16} className="text-red-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">{features[key]}</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem', maxWidth: '1100px', margin: '0 auto' }}>
+          {items.map((pkg) => {
+            const borderColor = pkg.color === 'red' ? '#dc2626' : pkg.color === 'gold' ? '#eab308' : '#4b5563'
+            const glowColor = pkg.color === 'red' ? 'rgba(220,38,38,0.15)' : pkg.color === 'gold' ? 'rgba(234,179,8,0.12)' : 'transparent'
+            const badgeColor = pkg.color === 'red' ? { background: '#dc2626', color: 'white' } : pkg.color === 'gold' ? { background: '#eab308', color: 'black' } : { background: '#374151', color: '#e5e7eb' }
+            return (
+              <div
+                key={pkg.id}
+                style={{
+                  position: 'relative',
+                  background: `linear-gradient(160deg, #161616 0%, #111 100%)`,
+                  border: `2px solid ${borderColor}`,
+                  boxShadow: `0 0 30px ${glowColor}, 0 4px 24px rgba(0,0,0,0.5)`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 50px ${glowColor}, 0 12px 40px rgba(0,0,0,0.6)` }}
+                onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 30px ${glowColor}, 0 4px 24px rgba(0,0,0,0.5)` }}
+              >
+                {/* Popular badge */}
+                {pkg.color === 'red' && (
+                  <div style={{ position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)' }}>
+                    <span style={{ background: '#dc2626', color: 'white', fontSize: '0.7rem', fontWeight: 900, padding: '3px 14px', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block' }}>
+                      {t.popular as string}
+                    </span>
                   </div>
-                ))}
+                )}
 
-                <p className="text-gray-500 text-xs mt-2 italic">{pkg.tag}</p>
-              </div>
+                {/* Card header */}
+                <div style={{ padding: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                    <span style={{ ...badgeColor, fontSize: '0.7rem', fontWeight: 900, padding: '3px 10px', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                      {pkg.name}
+                    </span>
+                    <span style={{ color: '#9ca3af', fontSize: '0.85rem', fontWeight: 600 }}>{pkg.duration}</span>
+                  </div>
+                  <div style={{ marginTop: '1rem' }}>
+                    <span style={{ fontSize: '3.2rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>{pkg.price}</span>
+                    <span style={{ fontSize: '1.4rem', fontWeight: 700, color: '#d1d5db', marginLeft: '4px' }}>{currency}</span>
+                  </div>
+                  <p style={{ color: '#9ca3af', fontSize: '0.85rem', marginTop: '0.75rem', lineHeight: 1.5 }}>{pkg.description}</p>
+                </div>
 
-              {/* CTA */}
-              <div className="p-6 pt-0">
-                <a
-                  href={getWhatsappUrl(pkg.whatsapp_msg)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary w-full justify-center text-sm"
-                  style={{ clipPath: 'none' }}
-                >
-                  <MessageCircle size={16} />
-                  {t.whatsapp as string}
-                </a>
+                {/* Features */}
+                <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {pkg.features.map((key) => (
+                    <div key={key} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem' }}>
+                      <Check size={15} style={{ color: '#ef4444', marginTop: '2px', flexShrink: 0 }} />
+                      <span style={{ color: '#d1d5db', fontSize: '0.875rem' }}>{features[key]}</span>
+                    </div>
+                  ))}
+                  <p style={{ color: '#6b7280', fontSize: '0.75rem', marginTop: '0.5rem', fontStyle: 'italic' }}>{pkg.tag}</p>
+                </div>
+
+                {/* CTA */}
+                <div style={{ padding: '0 1.5rem 1.5rem' }}>
+                  <a
+                    href={getWhatsappUrl(pkg.whatsapp_msg)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary w-full justify-center text-sm"
+                    style={{ clipPath: 'none' }}
+                  >
+                    <MessageCircle size={16} />
+                    {t.whatsapp as string}
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

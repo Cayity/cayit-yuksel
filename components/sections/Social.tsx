@@ -47,8 +47,8 @@ export default function Social({ locale, messages, content }: Props) {
   ].filter(Boolean)
 
   return (
-    <section id="contact" className="py-24 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" style={{ padding: '50px 0', background: '#0a0a0a' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
           <div>

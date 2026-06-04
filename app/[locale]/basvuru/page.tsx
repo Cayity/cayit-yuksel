@@ -5,6 +5,8 @@ import { use } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/sections/Navbar'
 import { ChevronRight, Send } from 'lucide-react'
+import trMessages from '@/messages/tr.json'
+import enMessages from '@/messages/en.json'
 
 const WHATSAPP_NUMBER = '905445715543'
 
@@ -68,34 +70,55 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
   }
 
+  const inputStyle: React.CSSProperties = {
+    background: '#2a2a2a',
+    border: '1px solid rgba(255,255,255,0.1)',
+    borderLeft: '3px solid #dc2626',
+    color: 'white',
+    padding: '12px 16px',
+    fontSize: '0.9rem',
+    outline: 'none',
+    width: '100%',
+    transition: 'border-color 0.2s, background 0.2s',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    color: '#d1d5db',
+    fontSize: '0.85rem',
+    fontWeight: 600,
+    marginBottom: '6px',
+    display: 'block',
+  }
+
   const input = (label: string, key: string, type = 'text', placeholder = '') => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-gray-300 text-sm font-semibold">{label}</label>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <label style={labelStyle}>{label}</label>
       <input
         type={type}
         placeholder={placeholder}
         value={form[key] || ''}
         onChange={(e) => set(key, e.target.value)}
-        className="bg-[#1a1a1a] border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors"
+        style={inputStyle}
+        onFocus={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderColor = '#dc2626' }}
+        onBlur={e => { e.currentTarget.style.background = '#1a1a1a'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderLeftColor = '#dc2626' }}
       />
     </div>
   )
 
   const radio = (label: string, key: string, options: string[]) => (
-    <div className="flex flex-col gap-2">
-      <label className="text-gray-300 text-sm font-semibold">{label}</label>
-      <div className="flex flex-wrap gap-3">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <label style={labelStyle}>{label}</label>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         {options.map((opt) => (
-          <label key={opt} className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name={key}
-              value={opt}
-              checked={form[key] === opt}
-              onChange={() => set(key, opt)}
-              className="accent-red-600"
-            />
-            <span className="text-gray-300 text-sm">{opt}</span>
+          <label key={opt} style={{
+            display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
+            padding: '8px 16px', border: `1px solid ${form[key] === opt ? '#dc2626' : 'rgba(255,255,255,0.12)'}`,
+            background: form[key] === opt ? 'rgba(220,38,38,0.15)' : '#1a1a1a',
+            color: form[key] === opt ? 'white' : '#9ca3af', fontSize: '0.85rem', fontWeight: 500,
+            transition: 'all 0.15s',
+          }}>
+            <input type="radio" name={key} value={opt} checked={form[key] === opt} onChange={() => set(key, opt)} style={{ display: 'none' }} />
+            {opt}
           </label>
         ))}
       </div>
@@ -103,35 +126,46 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   )
 
   const checkbox = (label: string, key: string, options: string[]) => (
-    <div className="flex flex-col gap-2">
-      <label className="text-gray-300 text-sm font-semibold">{label}</label>
-      <div className="flex flex-wrap gap-3">
-        {options.map((opt) => (
-          <label key={opt} className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={(form[key] || '').includes(opt)}
-              onChange={(e) => {
-                const cur = (form[key] || '').split(',').filter(Boolean)
-                set(key, e.target.checked ? [...cur, opt].join(', ') : cur.filter((v) => v !== opt).join(', '))
-              }}
-              className="accent-red-600"
-            />
-            <span className="text-gray-300 text-sm">{opt}</span>
-          </label>
-        ))}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <label style={labelStyle}>{label}</label>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        {options.map((opt) => {
+          const checked = (form[key] || '').includes(opt)
+          return (
+            <label key={opt} style={{
+              display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer',
+              padding: '8px 16px', border: `1px solid ${checked ? '#dc2626' : 'rgba(255,255,255,0.12)'}`,
+              background: checked ? 'rgba(220,38,38,0.15)' : '#1a1a1a',
+              color: checked ? 'white' : '#9ca3af', fontSize: '0.85rem', fontWeight: 500,
+              transition: 'all 0.15s',
+            }}>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => {
+                  const cur = (form[key] || '').split(',').filter(Boolean)
+                  set(key, e.target.checked ? [...cur, opt].join(', ') : cur.filter((v) => v !== opt).join(', '))
+                }}
+                style={{ display: 'none' }}
+              />
+              {opt}
+            </label>
+          )
+        })}
       </div>
     </div>
   )
 
   const textarea = (label: string, key: string) => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-gray-300 text-sm font-semibold">{label}</label>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <label style={labelStyle}>{label}</label>
       <textarea
         rows={3}
         value={form[key] || ''}
         onChange={(e) => set(key, e.target.value)}
-        className="bg-[#1a1a1a] border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors resize-none"
+        style={{ ...inputStyle, resize: 'none', lineHeight: 1.6 }}
+        onFocus={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderColor = '#dc2626' }}
+        onBlur={e => { e.currentTarget.style.background = '#1a1a1a'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderLeftColor = '#dc2626' }}
       />
     </div>
   )
@@ -145,82 +179,103 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   )
 
   const isTR = locale === 'tr'
+  const navMessages = isTR ? trMessages : enMessages
+  const col2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem 2rem' }
+  const colSpan: React.CSSProperties = { gridColumn: '1 / -1' }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a]">
-      <div className="pt-8 pb-4 px-4 text-center border-b border-white/10 bg-[#111111]">
-        <Link href={`/${locale}`} className="text-gray-500 text-sm hover:text-white transition-colors">
-          ← {isTR ? 'Ana Sayfaya Dön' : 'Back to Home'}
-        </Link>
-        <h1 className="text-white font-black text-2xl lg:text-4xl mt-4 tracking-tight">{t.title}</h1>
-        <p className="text-red-500 font-semibold mt-1">{t.subtitle}</p>
+    <main style={{ minHeight: '100vh', background: '#161616' }}>
+      <Navbar locale={locale} messages={navMessages} />
+
+      {/* Page header */}
+      <div style={{ paddingTop: '120px', paddingBottom: '2rem', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#111' }}>
+        <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>{t.title}</h1>
+        <p style={{ color: '#ef4444', fontWeight: 600, marginTop: '0.4rem' }}>{t.subtitle}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto px-4 sm:px-6 py-12 flex flex-col gap-4">
+      <form onSubmit={handleSubmit} style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
-        {sectionTitle(t.sections.personal)}
-        {input(isTR ? 'Ad Soyad' : 'Full Name', 'Ad Soyad')}
-        {input(isTR ? 'Yaş' : 'Age', 'Yaş', 'number')}
-        {input(isTR ? 'Boy (cm)' : 'Height (cm)', 'Boy')}
-        {input(isTR ? 'Kilo (kg)' : 'Weight (kg)', 'Kilo')}
-        {input(isTR ? 'Yaşadığın Ülke / Şehir' : 'Country / City', 'Ülke/Şehir')}
+        {/* Row 1: Kişisel + Hedef */}
+        <div style={col2}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.personal)}
+            {input(isTR ? 'Ad Soyad' : 'Full Name', 'Ad Soyad')}
+            {input(isTR ? 'Yaş' : 'Age', 'Yaş', 'number')}
+            {input(isTR ? 'Boy (cm)' : 'Height (cm)', 'Boy')}
+            {input(isTR ? 'Kilo (kg)' : 'Weight (kg)', 'Kilo')}
+            {input(isTR ? 'Yaşadığın Ülke / Şehir' : 'Country / City', 'Ülke/Şehir')}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.goal)}
+            {checkbox(
+              isTR ? 'Hedefin nedir?' : 'What is your goal?',
+              'Hedef',
+              isTR
+                ? ['Kas kazanımı', 'Yağ kaybı', 'Vücut şekillendirme', 'Güç artışı', 'Performans geliştirme']
+                : ['Muscle gain', 'Fat loss', 'Body recomposition', 'Strength increase', 'Performance improvement']
+            )}
+            {input(isTR ? 'Hedef kilon nedir?' : 'Target weight?', 'Hedef Kilo')}
+            {input(isTR ? 'Bu hedefe ulaşmak istediğin süre?' : 'Timeline to reach your goal?', 'Süre')}
+          </div>
+        </div>
 
-        {sectionTitle(t.sections.goal)}
-        {checkbox(
-          isTR ? 'Hedefin nedir?' : 'What is your goal?',
-          'Hedef',
-          isTR
-            ? ['Kas kazanımı', 'Yağ kaybı', 'Vücut şekillendirme', 'Güç artışı', 'Performans geliştirme']
-            : ['Muscle gain', 'Fat loss', 'Body recomposition', 'Strength increase', 'Performance improvement']
-        )}
-        {input(isTR ? 'Hedef kilon nedir?' : 'Target weight?', 'Hedef Kilo')}
-        {input(isTR ? 'Bu hedefe ulaşmak istediğin süre?' : 'Timeline to reach your goal?', 'Süre')}
+        {/* Row 2: Antrenman + Beslenme */}
+        <div style={col2}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.training)}
+            {radio(isTR ? 'Daha önce spor yaptın mı?' : 'Have you exercised before?', 'Spor Geçmişi', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {input(isTR ? 'Eğer evet ise ne kadar süre?' : 'If yes, for how long?', 'Spor Süresi')}
+            {radio(isTR ? 'Haftada kaç gün antrenman yapabilirsin?' : 'How many days/week can you train?', 'Haftalık Gün', ['1-2', '3-4', '5-6', '6+'])}
+            {radio(isTR ? 'Antrenman yaptığın ortam' : 'Training environment', 'Ortam', isTR ? ['Fitness salonu', 'Ev', 'İkisi de'] : ['Gym', 'Home', 'Both'])}
+            {radio(isTR ? 'Şu an aktif spor yapıyor musun?' : 'Are you currently active?', 'Aktif Spor', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.nutrition)}
+            {radio(isTR ? 'Beslenme düzenin nasıl?' : 'How is your diet?', 'Beslenme', isTR ? ['Düzensiz', 'Orta', 'Disiplinli'] : ['Irregular', 'Moderate', 'Disciplined'])}
+            {input(isTR ? 'Günlük öğün sayın' : 'Daily meal count', 'Öğün')}
+            {input(isTR ? 'Günlük su tüketimin (litre)' : 'Daily water intake (liters)', 'Su')}
+            {radio(isTR ? 'Daha önce diyet yaptın mı?' : 'Have you dieted before?', 'Diyet', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {input(isTR ? 'Alerjin / özel beslenme durumun' : 'Allergies / special dietary needs', 'Alerji')}
+          </div>
+        </div>
 
-        {sectionTitle(t.sections.training)}
-        {radio(isTR ? 'Daha önce spor yaptın mı?' : 'Have you exercised before?', 'Spor Geçmişi', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {input(isTR ? 'Eğer evet ise ne kadar süre?' : 'If yes, for how long?', 'Spor Süresi')}
-        {radio(isTR ? 'Haftada kaç gün antrenman yapabilirsin?' : 'How many days/week can you train?', 'Haftalık Gün', ['1-2', '3-4', '5-6', '6+'])}
-        {radio(isTR ? 'Antrenman yaptığın ortam' : 'Training environment', 'Ortam', isTR ? ['Fitness salonu', 'Ev', 'İkisi de'] : ['Gym', 'Home', 'Both'])}
-        {radio(isTR ? 'Şu an aktif spor yapıyor musun?' : 'Are you currently active?', 'Aktif Spor', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+        {/* Row 3: Sağlık + Günlük Yaşam */}
+        <div style={col2}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.health)}
+            {radio(isTR ? 'Herhangi bir kronik rahatsızlığın var mı?' : 'Any chronic conditions?', 'Kronik', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {input(isTR ? 'Varsa belirtiniz' : 'If yes, please specify', 'Kronik Detay')}
+            {radio(isTR ? 'Daha önce ameliyat geçirdin mi?' : 'Have you had surgery before?', 'Ameliyat', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {input(isTR ? 'Varsa açıklama' : 'If yes, explain', 'Ameliyat Detay')}
+            {radio(isTR ? 'Düzenli ilaç kullanıyor musun?' : 'Do you use medication regularly?', 'İlaç', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {radio(isTR ? 'Sporu engelleyen ağrı / sakatlık var mı?' : 'Any pain/injury that limits exercise?', 'Sakatlık', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {textarea(isTR ? 'Varsa açıklayınız' : 'If yes, explain', 'Sakatlık Detay')}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sectionTitle(t.sections.lifestyle)}
+            {radio(isTR ? 'İş durumun' : 'Work type', 'İş', isTR ? ['Aktif (hareketli)', 'Masa başı', 'Karma'] : ['Active (physical)', 'Desk job', 'Mixed'])}
+            {input(isTR ? 'Günlük uyku süren (saat)' : 'Daily sleep (hours)', 'Uyku')}
+            {radio(isTR ? 'Stres seviyen' : 'Stress level', 'Stres', isTR ? ['Düşük', 'Orta', 'Yüksek'] : ['Low', 'Medium', 'High'])}
 
-        {sectionTitle(t.sections.nutrition)}
-        {radio(isTR ? 'Beslenme düzenin nasıl?' : 'How is your diet?', 'Beslenme', isTR ? ['Düzensiz', 'Orta', 'Disiplinli'] : ['Irregular', 'Moderate', 'Disciplined'])}
-        {input(isTR ? 'Günlük öğün sayın' : 'Daily meal count', 'Öğün')}
-        {input(isTR ? 'Günlük su tüketimin (litre)' : 'Daily water intake (liters)', 'Su')}
-        {radio(isTR ? 'Daha önce diyet yaptın mı?' : 'Have you dieted before?', 'Diyet', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {input(isTR ? 'Alerjin / özel beslenme durumun' : 'Allergies / special dietary needs', 'Alerji')}
+            {sectionTitle(t.sections.motivation)}
+            {input(isTR ? 'Bu sürece ne kadar ciddisin? (1-10)' : 'How serious are you? (1-10)', 'Ciddiyet')}
+            {textarea(isTR ? 'Daha önce neden sonuç alamadığını düşünüyorsun?' : "Why haven't you gotten results before?", 'Engel')}
+            {textarea(isTR ? 'En büyük engelin nedir?' : 'What is your biggest obstacle?', 'Büyük Engel')}
 
-        {sectionTitle(t.sections.health)}
-        {radio(isTR ? 'Herhangi bir kronik rahatsızlığın var mı?' : 'Any chronic conditions?', 'Kronik', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {input(isTR ? 'Varsa belirtiniz' : 'If yes, please specify', 'Kronik Detay')}
-        {radio(isTR ? 'Daha önce ameliyat geçirdin mi?' : 'Have you had surgery before?', 'Ameliyat', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {input(isTR ? 'Varsa açıklama' : 'If yes, explain', 'Ameliyat Detay')}
-        {radio(isTR ? 'Düzenli ilaç kullanıyor musun?' : 'Do you use medication regularly?', 'İlaç', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {radio(isTR ? 'Sporu engelleyen ağrı / sakatlık var mı?' : 'Any pain/injury that limits exercise?', 'Sakatlık', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
-        {textarea(isTR ? 'Varsa açıklayınız' : 'If yes, explain', 'Sakatlık Detay')}
-
-        {sectionTitle(t.sections.lifestyle)}
-        {radio(isTR ? 'İş durumun' : 'Work type', 'İş', isTR ? ['Aktif (hareketli)', 'Masa başı', 'Karma'] : ['Active (physical)', 'Desk job', 'Mixed'])}
-        {input(isTR ? 'Günlük uyku süren (saat)' : 'Daily sleep (hours)', 'Uyku')}
-        {radio(isTR ? 'Stres seviyen' : 'Stress level', 'Stres', isTR ? ['Düşük', 'Orta', 'Yüksek'] : ['Low', 'Medium', 'High'])}
-
-        {sectionTitle(t.sections.motivation)}
-        {input(isTR ? 'Bu sürece ne kadar ciddisin? (1-10)' : 'How serious are you? (1-10)', 'Ciddiyet')}
-        {textarea(isTR ? 'Daha önce neden sonuç alamadığını düşünüyorsun?' : 'Why do you think you haven\'t gotten results before?', 'Engel')}
-        {textarea(isTR ? 'En büyük engelin nedir?' : 'What is your biggest obstacle?', 'Büyük Engel')}
-
-        {sectionTitle(t.sections.final)}
-        {radio(isTR ? 'Başlamaya hazır mısın?' : 'Are you ready to start?', 'Hazır', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+            {sectionTitle(t.sections.final)}
+            {radio(isTR ? 'Başlamaya hazır mısın?' : 'Are you ready to start?', 'Hazır', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
+          </div>
+        </div>
 
         {/* Privacy note */}
-        <div className="border border-white/10 bg-[#1a1a1a] p-4 mt-4">
-          <p className="text-gray-500 text-xs leading-relaxed">🔒 {t.privacy}</p>
+        <div style={{ ...colSpan, border: '1px solid rgba(255,255,255,0.1)', background: '#2a2a2a', padding: '1rem' }}>
+          <p style={{ color: '#6b7280', fontSize: '0.75rem', lineHeight: 1.6 }}>🔒 {t.privacy}</p>
         </div>
 
         {/* Submit */}
         <button
           type="submit"
-          className="btn-primary w-full justify-center text-base py-5 mt-4"
+          className="btn-primary w-full justify-center text-base py-5"
           style={{ clipPath: 'none' }}
         >
           <Send size={18} />

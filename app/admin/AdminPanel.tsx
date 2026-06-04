@@ -634,14 +634,42 @@ function Card({ title, children, action }: { title: string; children: React.Reac
   )
 }
 
-function ImagePathInput({ label, value, onChange, images }: {
+function ImagePathInput({ label, value, onChange, images: initialImages }: {
   label?: string
   value: string
   onChange: (v: string) => void
   images: string[]
 }) {
   const [open, setOpen] = useState(false)
+  const [images, setImages] = useState(initialImages)
+  const [uploading, setUploading] = useState(false)
+  const uploadRef = useRef<HTMLInputElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const [pickerPos, setPickerPos] = useState({ top: 0, left: 0 })
   const fieldStyle: React.CSSProperties = { flex: 1, background: '#2a2a2a', border: '1px solid rgba(255,255,255,0.12)', color: 'white', padding: '10px 14px', fontSize: '14px', borderRadius: '6px', outline: 'none', minWidth: 0 }
+
+  // initialImages güncellenince senkronize et
+  useEffect(() => { setImages(initialImages) }, [initialImages])
+
+  const handleInlineUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    const fd = new FormData()
+    fd.append('file', file)
+    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+    const data = await res.json()
+    if (data.path) {
+      const refreshed = await fetch('/api/admin/images')
+      const refreshedData = await refreshed.json()
+      const newImages = refreshedData.images || []
+      setImages(newImages)
+      onChange(data.path)
+      setOpen(false)
+    }
+    setUploading(false)
+    if (uploadRef.current) uploadRef.current.value = ''
+  }
 
   return (
     <div style={{ position: 'relative' }}>
@@ -649,9 +677,14 @@ function ImagePathInput({ label, value, onChange, images }: {
       <div style={{ display: 'flex', gap: '8px' }}>
         <input style={fieldStyle} value={value} onChange={(e) => onChange(e.target.value)} placeholder="/images/foto.jpg" />
         <button
+          ref={triggerRef}
           type="button"
-          onClick={() => setOpen((o) => !o)}
-          style={{ flexShrink: 0, background: '#2a2a2a', border: '1px solid rgba(255,255,255,0.12)', color: '#9ca3af', padding: '0 12px', borderRadius: '6px', cursor: 'pointer' }}
+          onClick={() => {
+            const rect = triggerRef.current?.getBoundingClientRect()
+            if (rect) setPickerPos({ top: rect.bottom + 6, left: rect.left - 280 })
+            setOpen((o) => !o)
+          }}
+          style={{ flexShrink: 0, background: open ? '#dc2626' : '#2a2a2a', border: '1px solid rgba(255,255,255,0.12)', color: open ? 'white' : '#9ca3af', padding: '0 12px', borderRadius: '6px', cursor: 'pointer', transition: 'all 0.15s' }}
           title="Galeriden seç"
         >
           <ImageIcon size={16} />
@@ -660,29 +693,49 @@ function ImagePathInput({ label, value, onChange, images }: {
 
       {/* Preview */}
       {value && (
-        <div className="mt-2 relative w-16 h-16 rounded overflow-hidden border border-white/10">
-          <Image src={value} alt="preview" fill className="object-cover" sizes="64px" onError={() => {}} />
+        <div style={{ marginTop: '8px', position: 'relative', width: '64px', height: '64px', borderRadius: '6px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <Image src={value} alt="preview" fill style={{ objectFit: 'cover' }} sizes="64px" onError={() => {}} />
         </div>
       )}
 
-      {/* Gallery picker */}
+      {/* Gallery picker — fixed, overflow sorununu bypass eder */}
       {open && (
-        <div className="absolute z-50 top-full left-0 mt-1 w-72 bg-[#1e1e1e] border border-white/20 rounded-lg shadow-2xl p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-white text-xs font-bold">Galeriden Seç</span>
-            <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-white"><X size={14} /></button>
+        <div style={{ position: 'fixed', zIndex: 9999, top: pickerPos.top, left: Math.max(8, pickerPos.left), width: '320px', background: '#1e1e1e', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '10px', boxShadow: '0 12px 40px rgba(0,0,0,0.6)', padding: '12px' }}>
+
+          {/* Header */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+            <span style={{ color: 'white', fontSize: '12px', fontWeight: 700 }}>Fotoğraf Seç</span>
+            <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', padding: '2px' }}>
+              <X size={14} />
+            </button>
           </div>
+
+          {/* Bilgisayardan Yükle butonu */}
+          <button
+            type="button"
+            onClick={() => uploadRef.current?.click()}
+            disabled={uploading}
+            style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', background: uploading ? '#374151' : '#dc2626', color: 'white', border: 'none', borderRadius: '6px', padding: '9px', fontSize: '12px', fontWeight: 700, cursor: uploading ? 'not-allowed' : 'pointer', marginBottom: '10px', opacity: uploading ? 0.7 : 1, transition: 'background 0.15s' }}
+          >
+            <Upload size={14} />
+            {uploading ? 'Yükleniyor...' : 'Bilgisayardan Yükle'}
+          </button>
+          <input ref={uploadRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleInlineUpload} />
+
+          {/* Galeri grid */}
           {images.length === 0 ? (
-            <p className="text-gray-500 text-xs text-center py-4">Fotoğraf yok</p>
+            <p style={{ color: '#6b7280', fontSize: '12px', textAlign: 'center', padding: '16px 0' }}>Henüz fotoğraf yok</p>
           ) : (
-            <div className="grid grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px', maxHeight: '200px', overflowY: 'auto' }}>
               {images.map((img) => (
                 <button
                   key={img}
+                  type="button"
                   onClick={() => { onChange(img); setOpen(false) }}
-                  className={`relative aspect-square rounded overflow-hidden border-2 transition-colors ${value === img ? 'border-red-600' : 'border-transparent hover:border-white/30'}`}
+                  style={{ position: 'relative', aspectRatio: '1', borderRadius: '4px', overflow: 'hidden', border: `2px solid ${value === img ? '#dc2626' : 'transparent'}`, cursor: 'pointer', padding: 0, background: 'none', transition: 'border-color 0.15s' }}
+                  title={img.split('/').pop()}
                 >
-                  <Image src={img} alt={img} fill className="object-cover" sizes="80px" />
+                  <Image src={img} alt={img} fill style={{ objectFit: 'cover' }} sizes="70px" />
                 </button>
               ))}
             </div>

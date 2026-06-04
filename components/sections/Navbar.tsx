@@ -60,6 +60,7 @@ export default function Navbar({ locale, messages, content }: Props) {
     { label: t.about, href: `#about` },
     { label: t.packages, href: `#packages` },
     { label: t.apply, href: `/${locale}/basvuru` },
+    { label: t.faq, href: `/${locale}/sss` },
     { label: t.contact, href: `#contact` },
   ]
 

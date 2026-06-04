@@ -4,6 +4,7 @@
     "about": "Hakkımda",
     "packages": "Paketler",
     "apply": "Başvur",
+    "faq": "S.S.S.",
     "contact": "İletişim",
     "cta": "HEMEN BAŞLA"
   },
@@ -117,6 +118,36 @@
     "title": "SOSYAL MEDYADA\nCAYİT YÜKSEL",
     "subtitle": "Ücretsiz içerikler ve motivasyon için takip et!",
     "follow": "TAKİP ET"
+  },
+  "faq": {
+    "tag": "/// MERAK EDİLENLER",
+    "title": "SIKÇA SORULAN SORULAR",
+    "items": [
+      {
+        "q": "Gelişim garantisi verebiliyor musunuz?",
+        "a": "Herhangi bir hormonal bozukluğunuz yoksa yazılan plana disiplinli şekilde uyulduğu taktirde sonuç gelecektir."
+      },
+      {
+        "q": "Fotoğraflarım sitede yayınlanacak mı?",
+        "a": "Sitede yayınladığımız değişim fotoğrafları öğrencilerimden yayınlamak için bizzat izin aldığım fotoğraflardır. İzin alınmadığı taktirde hiçbir öğrencimin fotoğrafı yayınlanmaz."
+      },
+      {
+        "q": "Programım ne kadar sürede hazırlanacak?",
+        "a": "Yoğunluk az olduğu zamanlarda aynı gün teslim etmekle birlikte, yoğun olduğum zamanlarda 3 güne kadar sürebilir."
+      },
+      {
+        "q": "Programları nasıl hazırlıyorsunuz?",
+        "a": "Sizden aldığım bilgiler doğrultusunda, hedefinize, hayat şartlarınıza ve şu anki durumunuza göre hazırlıyorum."
+      },
+      {
+        "q": "Programımı dondurabilir miyim?",
+        "a": "Programınızı aldıktan sonra herhangi bir dondurma işlemine ihtiyaç duymazsınız. Siz tekrar PT formu doldurana kadar hakkınız beklemede kalır."
+      },
+      {
+        "q": "Programı şimdi alıp istediğim zaman kullanabilir miyim?",
+        "a": "Program satın aldığınızda, kişisel bilgilerinizi göndermeniz için bir form özelliğine sahip olursunuz. Bu formu istediğiniz zaman gönderebilirsiniz."
+      }
+    ]
   },
   "apply": {
     "tag": "/// BAŞVURU",

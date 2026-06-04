@@ -9,7 +9,7 @@ export default function ApplyCTA({ locale, messages }: Props) {
   const t = messages.apply as Record<string, string>
 
   return (
-    <section className="py-24 bg-red-600 relative overflow-hidden">
+    <section style={{ padding: '50px 0', marginTop: '50px' }} className="bg-red-600 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-10"
         style={{

@@ -12,19 +12,12 @@ export default function Transformations({ locale, messages, content }: Props) {
   const t = messages.transformations as Record<string, string>
 
   return (
-    <section className="py-24 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section style={{ padding: '50px 0', background: '#0a0a0a' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
         {/* Header */}
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <p className="section-tag">{t.tag}</p>
-            <h2 className="section-title">{t.title}</h2>
-          </div>
-          {content.transformations.length > 0 && (
-            <a href="#" className="btn-primary text-sm hidden sm:inline-flex">
-              {t.see_all} <ChevronRight size={14} />
-            </a>
-          )}
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>{t.tag}</p>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '20px' }}>{t.title}</h2>
         </div>
 
         {/* Cards or empty */}
@@ -55,6 +48,14 @@ export default function Transformations({ locale, messages, content }: Props) {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {content.transformations.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+            <a href="#" className="btn-primary text-sm inline-flex">
+              {t.see_all} <ChevronRight size={14} />
+            </a>
           </div>
         )}
       </div>

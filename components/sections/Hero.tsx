@@ -45,8 +45,6 @@ export default function Hero({ locale, messages, content }: Props) {
         style={{ paddingLeft: 'max(32px, calc((100vw - 1280px) / 2 + 32px))', paddingRight: '32px' }}
       >
         <div style={{ maxWidth: '620px' }}>
-          <p className="section-tag mb-5">{t.tag}</p>
-
           <h1
             className="section-title"
             style={{
@@ -58,7 +56,7 @@ export default function Hero({ locale, messages, content }: Props) {
             {(locale === 'tr' ? content.slogan?.tr : content.slogan?.en || t.title).split('\n').map((line, i) => (
               <span key={i} className="block">
                 {i === 0 || i === 2
-                  ? <span className="text-red-600">{line}</span>
+                  ? <span style={{ background: 'linear-gradient(90deg, #dc2626 0%, #ff6b35 60%, #ff4444 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{line}</span>
                   : line}
               </span>
             ))}

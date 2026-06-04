@@ -2,10 +2,10 @@
   "logo": "",
   "logoWidth": 120,
   "slogan": {
-    "tr": "HEDEFLERİNE ODAKLAN,\nGERİSİNİ HALLEDELİM",
+    "tr": "Hedeflerine odaklan, yolun geri kalanını \nbirlikte planlayalım.",
     "en": "FOCUS ON\nYOUR GOALS,\nLEAVE THE\nREST TO US",
-    "fontSize": 4.2,
-    "lineHeight": 1.25
+    "fontSize": 3.4,
+    "lineHeight": 1.2
   },
   "stats": {
     "clients": 500,
@@ -14,9 +14,16 @@
     "successRate": 98
   },
   "heroImage": "/images/1780555737132_chatgpt_image_4_haz_2026_09_48_38.png",
-  "aboutImage": "/images/about.jpg",
+  "aboutImage": "/images/1780565649380_whatsapp_image_2026-06-03_at_17.43.20__1_.jpeg",
   "sponsor": null,
-  "transformations": [],
+  "transformations": [
+    {
+      "id": "1780568977899",
+      "package": "STARTER - 12 Hafta",
+      "before": "/images/1780569134072_ab-degisim-1349-1.webp",
+      "after": "/images/1780569149506_ab-degisim-1349-2.webp"
+    }
+  ],
   "testimonials": [],
   "social": {
     "instagram": {

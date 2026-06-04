@@ -22,8 +22,8 @@ export default function Testimonials({ locale, messages, content }: Props) {
   const visible = items.slice(index, index + perPage)
 
   return (
-    <section className="py-24 bg-[#111111]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section style={{ padding: '50px 0', background: '#111111' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
         {/* Header */}
         <div className="flex items-end justify-between mb-12">
           <div>

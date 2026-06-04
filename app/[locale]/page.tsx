@@ -9,6 +9,7 @@ import Testimonials from '@/components/sections/Testimonials'
 import Social from '@/components/sections/Social'
 import ApplyCTA from '@/components/sections/ApplyCTA'
 import Footer from '@/components/sections/Footer'
+import FAQ from '@/components/sections/FAQ'
 import AnnouncementBar from '@/components/sections/AnnouncementBar'
 import { getContent } from '@/lib/content'
 
