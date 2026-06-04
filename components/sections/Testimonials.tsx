@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { SiteContent } from '@/lib/content'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import Image from 'next/image'
@@ -13,85 +13,180 @@ interface Props {
 
 export default function Testimonials({ locale, messages, content }: Props) {
   const t = messages.testimonials as Record<string, string>
-  const [index, setIndex] = useState(0)
   const items = content.testimonials
-  const perPage = 3
+  const [current, setCurrent] = useState(0)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const prev = () => setIndex((i) => Math.max(0, i - perPage))
-  const next = () => setIndex((i) => Math.min(items.length - perPage, i + perPage))
-  const visible = items.slice(index, index + perPage)
+  const total = items.length
+
+  const startAuto = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(() => {
+      setCurrent((i) => (i + 1) % total)
+    }, 3500)
+  }
+
+  useEffect(() => {
+    if (total > 1) startAuto()
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current) }
+  }, [total])
+
+  const goTo = (i: number) => {
+    setCurrent((i + total) % total)
+    startAuto() // manuel geçişte timer sıfırla
+  }
+
+  const prev = () => goTo(current - 1)
+  const next = () => goTo(current + 1)
+
+  if (items.length === 0) {
+    return (
+      <section style={{ padding: '80px 0', background: '#0d0d0d' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
+          <div style={{ border: '2px dashed rgba(255,255,255,0.15)', borderRadius: '12px', padding: '80px', textAlign: 'center' }}>
+            <p style={{ color: '#4b5563', fontSize: '16px' }}>Henüz yorum eklenmemiş.</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  // Sonsuz loop için kartları klonla: [...items, ...items, ...items]
+  const looped = [...items, ...items, ...items]
+  const offset = total // ortadaki kopyanın başlangıcı
 
   return (
-    <section style={{ padding: '50px 0', background: '#111111' }}>
+    <section style={{ padding: '80px 0', background: '#0d0d0d', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
         {/* Header */}
-        <div className="flex items-end justify-between mb-12">
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '48px' }}>
           <div>
-            <p className="section-tag">{t.tag}</p>
-            <h2 className="section-title">{t.title}</h2>
+            <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+              {t?.tag || 'MEMNUNİYET'}
+            </p>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', margin: 0 }}>
+              {t?.title || 'KULLANANLAR NE DİYOR?'}
+            </h2>
           </div>
-          {items.length > perPage && (
-            <div className="flex gap-2">
-              <button
-                onClick={prev}
-                disabled={index === 0}
-                className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-red-600 hover:text-red-500 disabled:opacity-30 transition-colors"
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <button
-                onClick={next}
-                disabled={index + perPage >= items.length}
-                className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-red-600 hover:text-red-500 disabled:opacity-30 transition-colors"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          )}
+
+          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+            <button
+              onClick={prev}
+              style={{
+                width: '44px', height: '44px', borderRadius: '50%',
+                background: '#fff', border: '2px solid #fff',
+                color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', transition: 'all 0.2s',
+              }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={next}
+              style={{
+                width: '44px', height: '44px', borderRadius: '50%',
+                background: '#fff', border: '2px solid #fff',
+                color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', transition: 'all 0.2s',
+              }}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
 
-        {items.length === 0 ? (
-          <div className="card border-dashed border-2 border-white/20 py-20 text-center">
-            <p className="text-gray-500 text-lg">{t.empty}</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visible.map((item) => (
-              <div key={item.id} className="card p-6 border border-white/10 flex flex-col gap-4">
-                {/* Stars */}
-                <div className="flex gap-1">
+        {/* Slider */}
+        <div style={{ overflow: 'hidden' }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: '20px',
+              transform: `translateX(-${(offset + current) * (360 + 20)}px)`,
+              transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            }}
+          >
+            {looped.map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  minWidth: '360px',
+                  maxWidth: '360px',
+                  background: '#1a1a2e',
+                  borderRadius: '16px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                  border: '1px solid rgba(220,38,38,0.15)',
+                  flexShrink: 0,
+                }}
+              >
+                {/* Yıldızlar */}
+                <div style={{ display: 'flex', gap: '4px' }}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      size={16}
-                      className={i < item.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}
+                      size={18}
+                      style={{
+                        color: i < item.rating ? '#f59e0b' : '#374151',
+                        fill: i < item.rating ? '#f59e0b' : 'none',
+                      }}
                     />
                   ))}
                 </div>
 
-                {/* Text */}
-                <p className="text-gray-300 text-sm leading-relaxed flex-1">"{item.text}"</p>
+                {/* Yorum */}
+                <p style={{ color: '#d1d5db', fontSize: '14px', lineHeight: 1.7, flex: 1, margin: 0 }}>
+                  {item.text}
+                </p>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 border-t border-white/10 pt-4">
+                {/* Kullanıcı */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                   {item.avatar ? (
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden">
-                      <Image src={item.avatar} alt={item.name} fill className="object-cover" sizes="40px" />
+                    <div style={{ width: '44px', height: '44px', borderRadius: '50%', overflow: 'hidden', position: 'relative', flexShrink: 0, border: '2px solid rgba(220,38,38,0.4)' }}>
+                      <Image src={item.avatar} alt={item.name} fill style={{ objectFit: 'cover' }} sizes="44px" />
                     </div>
                   ) : (
-                    <div className="w-10 h-10 rounded-full bg-red-600/20 border border-red-600/30 flex items-center justify-center text-red-400 font-bold text-sm">
-                      {item.name[0]}
+                    <div style={{
+                      width: '44px', height: '44px', borderRadius: '50%', flexShrink: 0,
+                      background: 'rgba(220,38,38,0.15)', border: '2px solid rgba(220,38,38,0.4)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: '#dc2626', fontWeight: 800, fontSize: '16px',
+                    }}>
+                      {item.name[0].toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <div className="text-white font-semibold text-sm">{item.name}</div>
-                    <div className="text-gray-500 text-xs">{item.package}</div>
+                    <div style={{ color: '#fff', fontWeight: 700, fontSize: '14px' }}>{item.name}</div>
+                    {item.package && (
+                      <div style={{ color: '#dc2626', fontSize: '12px', fontWeight: 600, marginTop: '2px' }}>{item.package}</div>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        )}
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '32px' }}>
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              style={{
+                width: i === current ? '24px' : '8px',
+                height: '8px',
+                borderRadius: '4px',
+                background: i === current ? '#dc2626' : 'rgba(255,255,255,0.2)',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                padding: 0,
+              }}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )

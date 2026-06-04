@@ -1,5 +1,8 @@
+'use client'
+
 import { SiteContent } from '@/lib/content'
 import InstagramIcon from '@/components/ui/InstagramIcon'
+import Image from 'next/image'
 
 interface Props {
   locale: string
@@ -10,6 +13,7 @@ interface Props {
 export default function Social({ locale, messages, content }: Props) {
   const t = messages.social as Record<string, string>
   const { instagram, tiktok, youtube } = content.social
+  const photos = content.socialPhotos || []
 
   const platforms = [
     instagram && {
@@ -26,7 +30,7 @@ export default function Social({ locale, messages, content }: Props) {
       followers: youtube.followers,
       url: youtube.url,
       icon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+        <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 28, height: 28 }}>
           <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z" />
         </svg>
       ),
@@ -38,7 +42,7 @@ export default function Social({ locale, messages, content }: Props) {
       followers: tiktok.followers,
       url: tiktok.url,
       icon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
+        <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 28, height: 28 }}>
           <path d="M19.6 3.4A4.5 4.5 0 0 1 15.1 0h-3.4v16.4a2.7 2.7 0 0 1-2.7 2.3 2.7 2.7 0 0 1-2.7-2.7 2.7 2.7 0 0 1 2.7-2.7c.27 0 .52.04.77.1V10a6.1 6.1 0 0 0-.77-.05A6.1 6.1 0 0 0 3 16.1 6.1 6.1 0 0 0 9.1 22.2a6.1 6.1 0 0 0 6.1-6.1V8.1a7.8 7.8 0 0 0 4.4 1.3V6a4.5 4.5 0 0 1-4.4-2.6H19.6z" />
         </svg>
       ),
@@ -47,48 +51,93 @@ export default function Social({ locale, messages, content }: Props) {
   ].filter(Boolean)
 
   return (
-    <section id="contact" style={{ padding: '50px 0', background: '#0a0a0a' }}>
+    <section id="contact" style={{ padding: '80px 0', background: '#0a0a0a' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left */}
+        <div style={{ display: 'grid', gridTemplateColumns: photos.length > 0 ? '1fr 1fr' : '1fr', gap: '4rem', alignItems: 'center' }}>
+
+          {/* Sol — başlık + platform kartları */}
           <div>
             <p className="section-tag">{t.tag}</p>
-            <h2 className="section-title mb-4">
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
               {t.title.split('\n').map((line, i) => (
-                <span key={i} className="block">{line}</span>
+                <span key={i} style={{ display: 'block' }}>{line}</span>
               ))}
             </h2>
-            <p className="text-gray-400 text-lg">{t.subtitle}</p>
+            <p style={{ color: '#9ca3af', fontSize: '1rem', marginBottom: '2rem' }}>{t.subtitle}</p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {platforms.map((p) => p && (
+                <a
+                  key={p.name}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '20px', padding: '16px 20px',
+                    background: '#111', border: '1px solid rgba(255,255,255,0.08)',
+                    textDecoration: 'none', transition: 'border-color 0.2s',
+                  }}
+                >
+                  <div style={{
+                    width: '52px', height: '52px', borderRadius: '50%', flexShrink: 0,
+                    background: `linear-gradient(135deg, ${p.color.includes('purple') ? '#7c3aed, #db2777' : p.color.includes('red-7') ? '#b91c1c, #ef4444' : '#374151, #111827'})`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white',
+                  }}>
+                    {p.icon}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: '#6b7280', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em' }}>{p.name}</div>
+                    <div style={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>{p.handle}</div>
+                    {p.followers && <div style={{ color: '#dc2626', fontWeight: 900, fontSize: '18px' }}>{p.followers}</div>}
+                  </div>
+                  <div style={{ color: '#dc2626', fontWeight: 800, fontSize: '12px', letterSpacing: '0.1em' }}>
+                    {t.follow} ▶
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Right - platform cards */}
-          <div className="flex flex-col gap-4">
-            {platforms.map((p) => p && (
-              <a
-                key={p.name}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="card flex items-center gap-5 p-5 border border-white/10 hover:border-red-600/50 transition-colors group"
-              >
-                <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${p.color} flex items-center justify-center text-white flex-shrink-0`}>
-                  {p.icon}
-                </div>
-                <div className="flex-1">
-                  <div className="text-xs font-bold text-gray-500 tracking-widest">{p.name}</div>
-                  <div className="text-white font-bold text-lg">{p.handle}</div>
-                  {p.followers && (
-                    <div className="text-red-500 font-black text-xl">{p.followers}</div>
-                  )}
-                </div>
-                <div className="text-red-600 font-black text-sm tracking-widest group-hover:text-red-400 transition-colors">
-                  {t.follow} ▶
-                </div>
-              </a>
-            ))}
-          </div>
+          {/* Sağ — Fotoğraf grid */}
+          {photos.length > 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '4px' }}>
+              {photos.slice(0, 6).map((photo, i) => (
+                <a
+                  key={i}
+                  href={instagram?.url || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ position: 'relative', aspectRatio: '1', display: 'block', overflow: 'hidden', background: '#111' }}
+                >
+                  <Image
+                    src={photo}
+                    alt={`Sosyal medya fotoğrafı ${i + 1}`}
+                    fill
+                    style={{ objectFit: 'cover', transition: 'transform 0.4s' }}
+                    sizes="200px"
+                  />
+                  {/* Overlay */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'rgba(0,0,0,0)',
+                    transition: 'background 0.3s',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                    className="social-photo-overlay"
+                  >
+                    <InstagramIcon size={28} />
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
+
+      <style>{`
+        .social-photo-overlay { opacity: 0; color: white; }
+        a:hover .social-photo-overlay { opacity: 1; background: rgba(0,0,0,0.5) !important; }
+      `}</style>
     </section>
   )
 }

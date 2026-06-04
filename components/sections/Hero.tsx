@@ -24,7 +24,7 @@ export default function Hero({ locale, messages, content }: Props) {
       {/* Soldan sağa gradient overlay */}
       <div
         className="absolute inset-0"
-        style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.50) 30%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 100%)' }}
+        style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0) 100%)' }}
       />
 
       {/* Alt gradient */}

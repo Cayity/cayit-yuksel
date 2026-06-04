@@ -57,8 +57,8 @@ export default function Navbar({ locale, messages, content }: Props) {
 
   const links = [
     { label: t.home, href: `/${locale}` },
-    { label: t.about, href: `#about` },
-    { label: t.packages, href: `#packages` },
+    { label: t.about, href: `/${locale}/hakkimda` },
+    { label: t.packages, href: `/${locale}/paketler` },
     { label: t.apply, href: `/${locale}/basvuru` },
     { label: t.faq, href: `/${locale}/sss` },
     { label: t.contact, href: `#contact` },

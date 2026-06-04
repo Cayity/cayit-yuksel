@@ -15,6 +15,18 @@
   },
   "heroImage": "/images/1780555737132_chatgpt_image_4_haz_2026_09_48_38.png",
   "aboutImage": "/images/1780565649380_whatsapp_image_2026-06-03_at_17.43.20__1_.jpeg",
+  "about": {
+    "bio1": "Merhaba, ben Cayit Yüksel, Türkiye'de yaşayan 1. Kademe Vücut Geliştirme Antrenörüyüm ve yaklaşık 10 yıllık fitness ve vücut geliştirme deneyimine sahibim.",
+    "bio2": "Uzun yıllardır edindiğim bilgi ve tecrübelerle, online koçluk hizmeti sunarak dünyanın farklı ülkelerinden danışanlara ulaşan bir sistemle çalışıyorum. Amacım; kas kazanımı, yağ kaybı, kuvvet artışı ve vücut geliştirme hedeflerini bilimsel ve sürdürülebilir bir şekilde gerçeğe dönüştürmektir.",
+    "bio3": "Hedefim sadece fiziksel değişim değil; disiplin, istikrar ve uzun vadeli bir yaşam tarzı dönüşümü kazandırmaktır.",
+    "bio4": "Bugüne kadar 500'den fazla danışanla çalıştım; yurt içinden ve yurt dışından (Avrupa, Amerika, Orta Doğu) birçok farklı profile sahip kişiye özel program hazırladım. Her danışanın genetiği, yaşam tarzı ve hedefi farklı olduğundan, tek tip program yerine tamamen bireysel bir yaklaşım benimsiyorum.",
+    "bio5": "Bilimsel temelli antrenman metodolojisi ve beslenme stratejileriyle, danışanlarımın yalnızca fiziksel değil zihinsel olarak da güçlenmesine katkı sağlıyorum. Sabır, tutarlılık ve doğru yönlendirme ile herkes hedefine ulaşabilir.",
+    "certifications": [
+      "🏆 1. Kademe Vücut Geliştirme Antrenörü",
+      "📋 Kişisel Antrenörlük Sertifikası",
+      "🥗 Spor Beslenmesi Uzmanlığı"
+    ]
+  },
   "sponsor": null,
   "transformations": [
     {
@@ -24,7 +36,48 @@
       "after": "/images/1780569149506_ab-degisim-1349-2.webp"
     }
   ],
-  "testimonials": [],
+  "testimonials": [
+    {
+      "id": "1",
+      "name": "yavz.mert",
+      "rating": 5,
+      "text": "3 aydır Cayit hocamla beraber çalışıyoruz. 7/24 desteği, bilgisi ve ilgisiyle üç ayda çok yol kat ettik. Gerek profesyonelce gerek arkadaşça her zaman yanınızda olan bir hoca. 3 ayda 12 kilo verdik, yazdığı antrenman ve beslenme programı sayesinde.",
+      "avatar": "",
+      "package": "Pro Paket — 12 Hafta"
+    },
+    {
+      "id": "2",
+      "name": "hakannsayarr",
+      "rating": 5,
+      "text": "Ben İngiltere'de yaşıyorum, daha önce spora yapmaya başladım fakat bu uzun sürmedi çünkü ne yapacağımı bile bilmiyordum. Aradan 1 yıl geçti ve Cayit hocayı gördüm, sonra eğitim programına dahil oldum. Şimdi salona gittiğim zaman bilinçli spor yapabiliyorum.",
+      "avatar": "",
+      "package": "Elite Paket — 16 Hafta"
+    },
+    {
+      "id": "3",
+      "name": "haasaann871",
+      "rating": 5,
+      "text": "Harika bir sistem. Aynı gün içerisinde direkt online yardım. Hocam sayesinde 1.5 ayda kendime inanamayacak hale geldiysem 6. ayımı çok merak ediyorum. Her şey için teşekkürler!",
+      "avatar": "",
+      "package": "Starter Paket — 6 Hafta"
+    },
+    {
+      "id": "4",
+      "name": "r.burakbrn",
+      "rating": 5,
+      "text": "Programa başlamadan önce çok kararsızdım. Girdiğimizde istediğimiz hedefleri belirledik, her türlü konuda içtenlikle cevap verdi. Antrenman konusunda bize özel hazırladığı program gerçekten işe yarıyor.",
+      "avatar": "",
+      "package": "Pro Paket — 12 Hafta"
+    },
+    {
+      "id": "5",
+      "name": "merveylmz_",
+      "rating": 5,
+      "text": "Doğum sonrası formuma kavuşmak için çok uğraştım ama bir türlü istediğim sonucu alamıyordum. Cayit hocam sayesinde hem doğru beslenmeyi öğrendim hem de motivasyonumu hiç kaybetmedim. 2 ayda 8 kilo verdim!",
+      "avatar": "",
+      "package": "Pro Paket — 12 Hafta"
+    }
+  ],
   "social": {
     "instagram": {
       "handle": "cayit.yuksel",
@@ -34,6 +87,14 @@
     "tiktok": null,
     "youtube": null
   },
+  "socialPhotos": [
+    "/images/1780594760731_foto04.jpg",
+    "/images/1780594764367_foto03.jpg",
+    "/images/1780594771657_foto02.jpg",
+    "/images/1780594777961_foto01.jpg",
+    "/images/1780594863371_foto05.jpg",
+    "/images/1780594871615_foto06.jpg"
+  ],
   "announcement": {
     "tr": "🔥 Sınırlı kontenjan! Hemen başvur ve ilk adımı at.",
     "en": "🔥 Limited spots available! Apply now and take your first step.",

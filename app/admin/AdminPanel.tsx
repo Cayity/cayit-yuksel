@@ -12,10 +12,12 @@ interface Props {
   initialContent: SiteContent
 }
 
-type Section = 'general' | 'images' | 'transformations' | 'testimonials' | 'sponsor'
+type Section = 'general' | 'about' | 'packages' | 'images' | 'transformations' | 'testimonials' | 'sponsor'
 
 const NAV: { key: Section; label: string; icon: React.ReactNode }[] = [
   { key: 'general', label: 'Genel Ayarlar', icon: <Settings size={18} /> },
+  { key: 'about', label: 'Hakkımda', icon: <Users size={18} /> },
+  { key: 'packages', label: 'Paketler', icon: <LayoutDashboard size={18} /> },
   { key: 'images', label: 'Fotoğraflar', icon: <ImageIcon size={18} /> },
   { key: 'transformations', label: 'Dönüşümler', icon: <Users size={18} /> },
   { key: 'testimonials', label: 'Yorumlar', icon: <Star size={18} /> },
@@ -363,6 +365,247 @@ export default function AdminPanel({ initialContent }: Props) {
                   </div>
                 </div>
               </Card>
+
+              <Card title="Sosyal Medya — TikTok">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                  <div>
+                    <label style={lbl}>Kullanıcı Adı</label>
+                    <input style={inp} placeholder="örn: cayit.yuksel" value={content.social.tiktok?.handle || ''} onChange={(e) => update('social.tiktok', { ...(content.social.tiktok || { handle: '', followers: '', url: '' }), handle: e.target.value })} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Takipçi Sayısı</label>
+                    <input style={inp} placeholder="örn: 10.000" value={content.social.tiktok?.followers || ''} onChange={(e) => update('social.tiktok', { ...(content.social.tiktok || { handle: '', followers: '', url: '' }), followers: e.target.value })} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Profil URL</label>
+                    <input style={inp} placeholder="https://tiktok.com/@..." value={content.social.tiktok?.url || ''} onChange={(e) => update('social.tiktok', { ...(content.social.tiktok || { handle: '', followers: '', url: '' }), url: e.target.value })} />
+                  </div>
+                </div>
+              </Card>
+
+              <Card title="Sosyal Medya — YouTube">
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                  <div>
+                    <label style={lbl}>Kanal Adı</label>
+                    <input style={inp} placeholder="örn: Cayit Yüksel" value={content.social.youtube?.handle || ''} onChange={(e) => update('social.youtube', { ...(content.social.youtube || { handle: '', followers: '', url: '' }), handle: e.target.value })} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Abone Sayısı</label>
+                    <input style={inp} placeholder="örn: 5.000" value={content.social.youtube?.followers || ''} onChange={(e) => update('social.youtube', { ...(content.social.youtube || { handle: '', followers: '', url: '' }), followers: e.target.value })} />
+                  </div>
+                  <div>
+                    <label style={lbl}>Kanal URL</label>
+                    <input style={inp} placeholder="https://youtube.com/@..." value={content.social.youtube?.url || ''} onChange={(e) => update('social.youtube', { ...(content.social.youtube || { handle: '', followers: '', url: '' }), url: e.target.value })} />
+                  </div>
+                </div>
+              </Card>
+
+              <Card title="Sosyal Medya Fotoğrafları (Grid)">
+                <p style={{ color: '#6b7280', fontSize: '12px', marginBottom: '16px' }}>En fazla 6 fotoğraf gösterilir. Sosyal medya bölümünde Instagram grid görünümü için kullanılır.</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginBottom: '16px' }}>
+                  {(content.socialPhotos || []).map((photo, i) => (
+                    <div key={i} style={{ position: 'relative', aspectRatio: '1', background: '#1a1a1a', borderRadius: '4px', overflow: 'hidden' }}>
+                      <img src={photo} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <button
+                        onClick={() => update('socialPhotos', (content.socialPhotos || []).filter((_, idx) => idx !== i))}
+                        style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(220,38,38,0.9)', border: 'none', borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white' }}
+                      >
+                        <X size={12} />
+                      </button>
+                    </div>
+                  ))}
+                  {(content.socialPhotos || []).length < 6 && (
+                    <label style={{ aspectRatio: '1', background: '#1a1a1a', border: '1px dashed rgba(255,255,255,0.15)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', flexDirection: 'column', gap: '4px', color: '#6b7280' }}>
+                      <Upload size={20} />
+                      <span style={{ fontSize: '10px' }}>Ekle</span>
+                      <input type="file" accept="image/*" style={{ display: 'none' }} onChange={async (e) => {
+                        const file = e.target.files?.[0]
+                        if (!file) return
+                        const fd = new FormData()
+                        fd.append('file', file)
+                        const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+                        const data = await res.json()
+                        if (data.path) update('socialPhotos', [...(content.socialPhotos || []), data.path])
+                        e.target.value = ''
+                      }} />
+                    </label>
+                  )}
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* HAKKIMDA */}
+          {section === 'about' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <Card title="Biyografi">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {(['bio1', 'bio2', 'bio3', 'bio4', 'bio5'] as const).map((key, i) => (
+                    <div key={key}>
+                      <label style={lbl}>Paragraf {i + 1}</label>
+                      <textarea
+                        style={{ ...inp, minHeight: '80px', resize: 'vertical' }}
+                        value={(content.about as Record<string, string>)[key] || ''}
+                        onChange={(e) => update(`about.${key}`, e.target.value)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              <Card title="Sertifikalar">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {content.about.certifications.map((cert, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <input
+                        style={{ ...inp, flex: 1 }}
+                        value={cert}
+                        onChange={(e) => {
+                          const updated = [...content.about.certifications]
+                          updated[i] = e.target.value
+                          update('about.certifications', updated)
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          const updated = content.about.certifications.filter((_, idx) => idx !== i)
+                          update('about.certifications', updated)
+                        }}
+                        style={{ background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(220,38,38,0.3)', color: '#ef4444', padding: '8px', borderRadius: '4px', cursor: 'pointer' }}
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => update('about.certifications', [...content.about.certifications, ''])}
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', background: 'rgba(255,255,255,0.05)', border: '1px dashed rgba(255,255,255,0.2)', color: '#9ca3af', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}
+                  >
+                    <Plus size={14} /> Sertifika Ekle
+                  </button>
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {/* PAKETLER */}
+          {section === 'packages' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {content.packages.map((pkg, pkgIdx) => {
+                const borderColor = pkg.color === 'red' ? 'rgba(220,38,38,0.4)' : pkg.color === 'gold' ? 'rgba(234,179,8,0.4)' : 'rgba(255,255,255,0.1)'
+                return (
+                  <Card key={pkg.id} title={`${pkg.name} Paketi`}>
+                    <div style={{ borderLeft: `3px solid ${borderColor}`, paddingLeft: '16px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+                        <div>
+                          <label style={lbl}>Paket Adı</label>
+                          <input style={inp} value={pkg.name} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, name: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                        <div>
+                          <label style={lbl}>Süre</label>
+                          <input style={inp} value={pkg.duration} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, duration: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                        <div>
+                          <label style={lbl}>Renk (gray / red / gold)</label>
+                          <input style={inp} value={pkg.color} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, color: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                        <div>
+                          <label style={lbl}>Fiyat (₺)</label>
+                          <input style={inp} value={pkg.price} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, price: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                        <div>
+                          <label style={lbl}>Fiyat (€)</label>
+                          <input style={inp} value={pkg.priceEur} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, priceEur: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                        <div>
+                          <label style={lbl}>WhatsApp Mesajı</label>
+                          <input style={inp} value={pkg.whatsapp_msg} onChange={(e) => {
+                            const updated = [...content.packages]
+                            updated[pkgIdx] = { ...pkg, whatsapp_msg: e.target.value }
+                            update('packages', updated)
+                          }} />
+                        </div>
+                      </div>
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={lbl}>Açıklama</label>
+                        <input style={inp} value={pkg.description} onChange={(e) => {
+                          const updated = [...content.packages]
+                          updated[pkgIdx] = { ...pkg, description: e.target.value }
+                          update('packages', updated)
+                        }} />
+                      </div>
+                      <div style={{ marginBottom: '16px' }}>
+                        <label style={lbl}>Alt Not (emoji + kısa açıklama)</label>
+                        <input style={inp} value={pkg.tag} onChange={(e) => {
+                          const updated = [...content.packages]
+                          updated[pkgIdx] = { ...pkg, tag: e.target.value }
+                          update('packages', updated)
+                        }} />
+                      </div>
+                      <div>
+                        <label style={lbl}>Özellikler</label>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {pkg.features.map((feat, featIdx) => (
+                            <div key={featIdx} style={{ display: 'flex', gap: '8px' }}>
+                              <input
+                                style={{ ...inp, flex: 1 }}
+                                value={feat}
+                                onChange={(e) => {
+                                  const updated = [...content.packages]
+                                  const updatedFeats = [...pkg.features]
+                                  updatedFeats[featIdx] = e.target.value
+                                  updated[pkgIdx] = { ...pkg, features: updatedFeats }
+                                  update('packages', updated)
+                                }}
+                              />
+                              <button
+                                onClick={() => {
+                                  const updated = [...content.packages]
+                                  updated[pkgIdx] = { ...pkg, features: pkg.features.filter((_, i) => i !== featIdx) }
+                                  update('packages', updated)
+                                }}
+                                style={{ background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(220,38,38,0.3)', color: '#ef4444', padding: '8px', borderRadius: '4px', cursor: 'pointer' }}
+                              >
+                                <Trash2 size={14} />
+                              </button>
+                            </div>
+                          ))}
+                          <button
+                            onClick={() => {
+                              const updated = [...content.packages]
+                              updated[pkgIdx] = { ...pkg, features: [...pkg.features, ''] }
+                              update('packages', updated)
+                            }}
+                            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', background: 'rgba(255,255,255,0.05)', border: '1px dashed rgba(255,255,255,0.2)', color: '#9ca3af', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}
+                          >
+                            <Plus size={14} /> Özellik Ekle
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                )
+              })}
             </div>
           )}
 

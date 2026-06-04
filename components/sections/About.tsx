@@ -84,7 +84,7 @@ export default function About({ locale, messages, content }: Props) {
               </div>
             </div>
 
-            <a href={`/${locale}/basvuru`} className="btn-primary inline-flex" style={{ marginTop: '2.5rem' }}>
+            <a href={`/${locale}/hakkimda`} className="btn-primary inline-flex" style={{ marginTop: '2.5rem' }}>
               {t.cta as string} <ChevronRight size={16} />
             </a>
           </div>
