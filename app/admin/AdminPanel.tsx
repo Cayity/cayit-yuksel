@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { SiteContent } from '@/lib/content'
@@ -245,6 +245,70 @@ export default function AdminPanel({ initialContent }: Props) {
                 </div>
               </Card>
 
+              <Card title="Slogan (Hero)">
+                <p style={{ color: '#6b7280', fontSize: '12px', marginBottom: '16px' }}>
+                  Her satır için Enter kullan. Satır 1 ve 3 kırmızı, diğerleri beyaz görünür.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div>
+                    <label style={lbl}>Türkçe Slogan</label>
+                    <textarea
+                      rows={5}
+                      style={{ ...inp, resize: 'none', fontFamily: 'monospace', lineHeight: 1.6 }}
+                      value={content.slogan?.tr || ''}
+                      onChange={(e) => update('slogan.tr', e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label style={lbl}>İngilizce Slogan</label>
+                    <textarea
+                      rows={5}
+                      style={{ ...inp, resize: 'none', fontFamily: 'monospace', lineHeight: 1.6 }}
+                      value={content.slogan?.en || ''}
+                      onChange={(e) => update('slogan.en', e.target.value)}
+                    />
+                  </div>
+                </div>
+                {/* Font size + line height */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginTop: '20px' }}>
+                  <div>
+                    <label style={{ ...lbl, marginBottom: '10px' }}>
+                      Font Boyutu: <span style={{ color: 'white', fontWeight: 700 }}>{content.slogan?.fontSize ?? 5}rem</span>
+                    </label>
+                    <input type="range" min={2} max={8} step={0.1}
+                      value={content.slogan?.fontSize ?? 5}
+                      onChange={(e) => update('slogan.fontSize', Number(e.target.value))}
+                      style={{ width: '100%', accentColor: '#dc2626', cursor: 'pointer' }}
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4b5563', fontSize: '11px', marginTop: '4px' }}>
+                      <span>2rem</span><span>8rem</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label style={{ ...lbl, marginBottom: '10px' }}>
+                      Satir Araligi: <span style={{ color: 'white', fontWeight: 700 }}>{content.slogan?.lineHeight ?? 1.0}</span>
+                    </label>
+                    <input type="range" min={0.8} max={1.8} step={0.05}
+                      value={content.slogan?.lineHeight ?? 1.0}
+                      onChange={(e) => update('slogan.lineHeight', Number(e.target.value))}
+                      style={{ width: '100%', accentColor: '#dc2626', cursor: 'pointer' }}
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4b5563', fontSize: '11px', marginTop: '4px' }}>
+                      <span>0.8</span><span>1.8</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Onizleme */}
+                <div style={{ marginTop: '20px', background: '#0a0a0a', borderRadius: '8px', padding: '20px 24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <p style={{ color: '#4b5563', fontSize: '11px', marginBottom: '12px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Onizleme (TR)</p>
+                  <div style={{ fontWeight: 900, lineHeight: content.slogan?.lineHeight ?? 1.0, fontSize: `${(content.slogan?.fontSize ?? 5) * 0.4}rem` }}>
+                    {(content.slogan?.tr || '').split('\n').map((line, i) => (
+                      <div key={i} style={{ color: i === 0 || i === 2 ? '#dc2626' : 'white' }}>{line || ' '}</div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+
               <Card title="Görseller">
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                   <ImagePathInput label="Hero Görsel" value={content.heroImage} onChange={(v) => update('heroImage', v)} images={images} />
@@ -297,60 +361,65 @@ export default function AdminPanel({ initialContent }: Props) {
 
           {/* IMAGES */}
           {section === 'images' && (
-            <div className="max-w-4xl space-y-6">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
               {/* Upload area */}
-              <Card title="Fotoğraf Yükle">
-                <div
-                  className="border-2 border-dashed border-white/20 hover:border-red-600/50 transition-colors rounded p-8 text-center cursor-pointer"
-                  onClick={() => fileRef.current?.click()}
-                >
-                  <Upload size={32} className="mx-auto mb-3 text-gray-500" />
-                  <p className="text-white font-semibold">Dosya seç veya buraya sürükle</p>
-                  <p className="text-gray-500 text-sm mt-1">JPG, PNG, WebP — max 10MB</p>
-                  {uploading && <p className="text-red-400 text-sm mt-3 animate-pulse">Yükleniyor...</p>}
+              <div
+                onClick={() => fileRef.current?.click()}
+                style={{
+                  border: `2px dashed ${uploading ? '#dc2626' : 'rgba(255,255,255,0.15)'}`,
+                  borderRadius: '12px',
+                  padding: '40px 24px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  background: uploading ? 'rgba(220,38,38,0.05)' : 'rgba(255,255,255,0.02)',
+                  transition: 'all 0.2s',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = '#dc2626')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = uploading ? '#dc2626' : 'rgba(255,255,255,0.15)')}
+              >
+                <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(220,38,38,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '4px' }}>
+                  <Upload size={24} color={uploading ? '#dc2626' : '#9ca3af'} />
                 </div>
-                <input
-                  ref={fileRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleUpload}
-                />
-              </Card>
+                <p style={{ color: 'white', fontWeight: 700, fontSize: '15px', margin: 0 }}>
+                  {uploading ? 'Yükleniyor...' : 'Dosya seç veya buraya sürükle'}
+                </p>
+                <p style={{ color: '#6b7280', fontSize: '13px', margin: 0 }}>JPG, PNG, WebP — max 10MB</p>
+                {!uploading && (
+                  <div style={{ marginTop: '8px', background: '#dc2626', color: 'white', padding: '8px 20px', borderRadius: '6px', fontSize: '13px', fontWeight: 700 }}>
+                    Dosya Seç
+                  </div>
+                )}
+              </div>
+              <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleUpload} />
 
               {/* Gallery */}
-              <Card title={`Mevcut Fotoğraflar (${images.length})`}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <h3 style={{ color: 'white', fontWeight: 700, fontSize: '15px', margin: 0 }}>
+                    Mevcut Fotoğraflar
+                  </h3>
+                  <span style={{ background: 'rgba(220,38,38,0.15)', color: '#f87171', fontSize: '12px', fontWeight: 700, padding: '4px 10px', borderRadius: '20px' }}>
+                    {images.length} dosya
+                  </span>
+                </div>
+
                 {images.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">Henüz fotoğraf yok.</p>
+                  <div style={{ textAlign: 'center', padding: '48px', color: '#4b5563', background: 'rgba(255,255,255,0.02)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                    Henüz fotoğraf yüklenmedi.
+                  </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
                     {images.map((img) => (
-                      <div key={img} className="relative group rounded overflow-hidden bg-[#2a2a2a] aspect-square">
-                        <Image src={img} alt={img} fill className="object-cover" sizes="200px" />
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
-                          <button
-                            onClick={() => copyPath(img)}
-                            className="bg-white text-black text-xs font-bold px-3 py-1.5 rounded w-full hover:bg-gray-200 transition-colors"
-                          >
-                            Yolu Kopyala
-                          </button>
-                          <button
-                            onClick={() => handleDelete(img)}
-                            className="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded w-full hover:bg-red-700 transition-colors flex items-center justify-center gap-1"
-                          >
-                            <Trash2 size={12} /> Sil
-                          </button>
-                        </div>
-                        {/* Filename */}
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1 text-xs text-gray-300 truncate">
-                          {img.split('/').pop()}
-                        </div>
-                      </div>
+                      <ImageCard key={img} img={img} onCopy={copyPath} onDelete={handleDelete} />
                     ))}
                   </div>
                 )}
-              </Card>
+              </div>
             </div>
           )}
 
@@ -504,6 +573,54 @@ export default function AdminPanel({ initialContent }: Props) {
 }
 
 /* --- Helper components --- */
+
+function ImageCard({ img, onCopy, onDelete }: { img: string; onCopy: (p: string) => void; onDelete: (p: string) => void }) {
+  const [hovered, setHovered] = useState(false)
+  const [copied, setCopied] = useState(false)
+  const name = img.split('/').pop() || ''
+
+  const handleCopy = () => {
+    onCopy(img)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1500)
+  }
+
+  return (
+    <div
+      style={{ borderRadius: '8px', overflow: 'hidden', background: '#2a2a2a', border: '1px solid rgba(255,255,255,0.08)', position: 'relative', cursor: 'pointer' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Image */}
+      <div style={{ position: 'relative', aspectRatio: '1', width: '100%' }}>
+        <Image src={img} alt={name} fill style={{ objectFit: 'cover' }} sizes="200px" />
+      </div>
+
+      {/* Filename bar */}
+      <div style={{ padding: '8px 10px', background: '#1e1e1e', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <p style={{ color: '#9ca3af', fontSize: '11px', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={name}>{name}</p>
+      </div>
+
+      {/* Hover overlay */}
+      {hovered && (
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px', backdropFilter: 'blur(2px)' }}>
+          <button
+            onClick={handleCopy}
+            style={{ width: '100%', background: copied ? '#16a34a' : 'white', color: copied ? 'white' : '#111', border: 'none', borderRadius: '6px', padding: '8px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+          >
+            {copied ? <><Check size={13} /> Kopyalandı!</> : 'Yolu Kopyala'}
+          </button>
+          <button
+            onClick={() => onDelete(img)}
+            style={{ width: '100%', background: '#dc2626', color: 'white', border: 'none', borderRadius: '6px', padding: '8px', fontSize: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+          >
+            <Trash2 size={13} /> Sil
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
 
 function Card({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
   return (

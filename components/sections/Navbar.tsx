@@ -13,6 +13,36 @@ interface Props {
   content?: SiteContent
 }
 
+/* Harf harf kırmızıya dönen animasyonlu link */
+function StaggerLink({ href, label }: { href: string; label: string }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href={href}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ textDecoration: 'none', display: 'inline-flex', letterSpacing: '0.08em' }}
+    >
+      {label.split('').map((char, i) => (
+        <span
+          key={i}
+          style={{
+            color: hovered ? '#dc2626' : '#d1d5db',
+            transition: `color 0.03s ease ${i * 30}ms`,
+            fontSize: '13px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            whiteSpace: 'pre',
+          }}
+        >
+          {char}
+        </span>
+      ))}
+    </a>
+  )
+}
+
 export default function Navbar({ locale, messages, content }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -35,78 +65,63 @@ export default function Navbar({ locale, messages, content }: Props) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black/95 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
-      }`}
-      style={{ top: 'var(--announcement-height, 0px)' }}
+      style={{
+        position: 'fixed',
+        top: scrolled ? '0' : '30px', left: 0, right: 0,
+        zIndex: 50,
+        transition: 'all 0.3s',
+        background: scrolled ? 'rgba(0,0,0,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
+      }}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <nav style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', height: '68px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px' }}>
+
         {/* Logo */}
-        <Link href={`/${locale}`} className="flex items-center gap-2 group">
+        <Link href={`/${locale}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}>
           {content?.logo ? (
-            <Image
-              src={content.logo}
-              alt="Cayit Yüksel Logo"
-              width={content.logoWidth || 120}
-              height={48}
-              style={{ objectFit: 'contain', maxHeight: '48px', width: 'auto' }}
-              priority
-            />
+            <Image src={content.logo} alt="Logo" width={content.logoWidth || 120} height={44} style={{ objectFit: 'contain', maxHeight: '44px', width: 'auto' }} priority />
           ) : (
             <>
-              <div className="w-9 h-9 bg-red-600 flex items-center justify-center font-black text-white text-sm leading-none">
-                CY
-              </div>
-              <span className="font-black text-white text-lg tracking-tight hidden sm:block">
-                CAYIT YÜKSEL
-              </span>
+              <div style={{ width: '36px', height: '36px', background: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, color: 'white', fontSize: '13px', borderRadius: '2px' }}>CY</div>
+              <span style={{ fontWeight: 900, color: 'white', fontSize: '16px', letterSpacing: '0.04em', display: 'none' }} className="sm:block">CAYIT YÜKSEL</span>
             </>
           )}
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-7">
+        {/* Desktop links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden lg:flex">
           {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-semibold text-gray-300 hover:text-white tracking-wide uppercase transition-colors"
-            >
-              {link.label}
-            </a>
+            <StaggerLink key={link.label} href={link.href} label={link.label} />
           ))}
         </div>
 
         {/* Right side */}
-        <div className="flex items-center gap-3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
           {/* Lang toggle */}
-          <Link
-            href={`/${otherLocale}`}
-            className="text-xs font-bold text-gray-400 hover:text-white border border-gray-600 hover:border-white px-2 py-1 transition-colors"
+          <Link href={`/${otherLocale}`} style={{ fontSize: '11px', fontWeight: 800, color: 'white', border: '1px solid rgba(255,255,255,0.4)', padding: '4px 8px', textDecoration: 'none', letterSpacing: '0.06em', transition: 'border-color 0.2s' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'white' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.4)' }}
           >
             {otherLocale.toUpperCase()}
           </Link>
 
           {/* Instagram */}
-          <a
-            href="https://instagram.com/cayit.yuksel"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors hidden sm:block"
+          <a href="https://instagram.com/cayit.yuksel" target="_blank" rel="noopener noreferrer" style={{ color: 'white', transition: 'opacity 0.2s' }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+            className="hidden sm:block"
           >
             <InstagramIcon size={18} />
           </a>
 
           {/* CTA */}
-          <a href={`/${locale}/basvuru`} className="btn-primary hidden lg:inline-flex text-xs py-2.5 px-4">
+          <a href={`/${locale}/basvuru`} className="btn-primary hidden lg:inline-flex" style={{ fontSize: '12px', padding: '10px 18px', clipPath: 'none' }}>
             {t.cta} ▶
           </a>
 
           {/* Mobile menu btn */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-white p-1"
-          >
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ color: 'white', background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }} className="lg:hidden" aria-label="Menu">
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -114,18 +129,15 @@ export default function Navbar({ locale, messages, content }: Props) {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-black/98 border-t border-white/10 px-4 py-6 flex flex-col gap-4">
+        <div style={{ background: 'rgba(0,0,0,0.98)', borderTop: '1px solid rgba(255,255,255,0.08)', padding: '16px 24px 24px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-base font-semibold text-gray-300 hover:text-white tracking-wide uppercase transition-colors py-2 border-b border-white/5"
+            <a key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
+              style={{ display: 'block', padding: '12px 0', color: '#d1d5db', textDecoration: 'none', fontSize: '14px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
             >
               {link.label}
             </a>
           ))}
-          <a href={`/${locale}/basvuru`} className="btn-primary mt-2 justify-center">
+          <a href={`/${locale}/basvuru`} className="btn-primary mt-4 justify-center" style={{ clipPath: 'none' }}>
             {t.cta} ▶
           </a>
         </div>

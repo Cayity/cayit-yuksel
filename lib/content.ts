@@ -2,8 +2,14 @@ import fs from 'fs'
 import path from 'path'
 
 export interface SiteContent {
-  logo: string       // boşsa CY text logo gösterilir
-  logoWidth: number  // px cinsinden genişlik (40-200)
+  logo: string
+  logoWidth: number
+  slogan: {
+    tr: string
+    en: string
+    fontSize: number   // clamp min (rem) — örn: 3
+    lineHeight: number // örn: 1.0
+  }
   stats: {
     clients: number
     years: number
@@ -48,6 +54,12 @@ const contentPath = path.join(process.cwd(), 'data', 'content.json')
 const defaultContent: SiteContent = {
   logo: '',
   logoWidth: 120,
+  slogan: {
+    tr: 'HEDEFLERİNE\nODAKLAN,\nGERİSİNİ\nHALLEDELİM',
+    en: 'FOCUS ON\nYOUR GOALS,\nLEAVE THE\nREST TO US',
+    fontSize: 5,
+    lineHeight: 1.0,
+  },
   stats: {
     clients: 500,
     years: 10,

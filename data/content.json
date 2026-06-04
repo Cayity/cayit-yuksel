@@ -1,11 +1,19 @@
 {
+  "logo": "",
+  "logoWidth": 120,
+  "slogan": {
+    "tr": "HEDEFLERİNE ODAKLAN,\nGERİSİNİ HALLEDELİM",
+    "en": "FOCUS ON\nYOUR GOALS,\nLEAVE THE\nREST TO US",
+    "fontSize": 4.2,
+    "lineHeight": 1.25
+  },
   "stats": {
     "clients": 500,
     "years": 10,
     "countries": 15,
     "successRate": 98
   },
-  "heroImage": "/images/1780553777934_slide_1.png",
+  "heroImage": "/images/1780555737132_chatgpt_image_4_haz_2026_09_48_38.png",
   "aboutImage": "/images/about.jpg",
   "sponsor": null,
   "transformations": [],
