@@ -45,13 +45,19 @@ public/images/               — Yüklenen fotoğraflar
 - Bölümler: Genel (logo+slider, slogan+font/lineHeight slider, istatistik, duyuru, sosyal), Fotoğraflar (upload+galeri), Dönüşümler, Yorumlar, Sponsor
 
 ## Yapılacaklar (Öncelik Sırasına Göre)
-1. **Admin panel şifre koruması** — canlıya çıkmadan ŞART
-2. Hakkımda bölümü tasarımı
-3. Paketler bölümü tasarımı
-4. Footer tasarımı
-5. Başarı hikayeleri bölümü
-6. Yorumlar/testimonials bölümü
-7. Deploy: cPanel Node.js Selector (GitHub repo müşteri hesabı bekleniyor)
+1. **Footer tasarımı** ← SIRA BURASI
+2. Mobil uyumluluk kontrol
+3. SEO meta tagları
+4. EN dil desteği kontrolü
+
+## Tamamlananlar ✅
+- Admin panel şifre koruması (middleware + login sayfası, ADMIN_PASSWORD env var)
+- Hakkımda sayfası (/tr/hakkimda) — admin panelden düzenlenebilir
+- Paketler sayfası (/tr/paketler) — admin panelden düzenlenebilir
+- Testimonials: otomatik loop slider
+- Social: Instagram fotoğraf grid
+- ApplyCTA: animasyonlu buton
+- www.cayityuksel.com SSL sorunu çözüldü
 
 ## Deploy Durumu
 - Vercel'e deploy edildi ✅
