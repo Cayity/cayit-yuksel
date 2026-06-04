@@ -1,0 +1,27 @@
+{
+  "stats": {
+    "clients": 500,
+    "years": 10,
+    "countries": 15,
+    "successRate": 98
+  },
+  "heroImage": "/images/1780553777934_slide_1.png",
+  "aboutImage": "/images/about.jpg",
+  "sponsor": null,
+  "transformations": [],
+  "testimonials": [],
+  "social": {
+    "instagram": {
+      "handle": "cayit.yuksel",
+      "followers": "",
+      "url": "https://instagram.com/cayit.yuksel"
+    },
+    "tiktok": null,
+    "youtube": null
+  },
+  "announcement": {
+    "tr": "🔥 Sınırlı kontenjan! Hemen başvur ve ilk adımı at.",
+    "en": "🔥 Limited spots available! Apply now and take your first step.",
+    "active": true
+  }
+}

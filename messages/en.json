@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "packages": "Packages",
+    "apply": "Apply",
+    "contact": "Contact",
+    "cta": "GET STARTED"
+  },
+  "announcement": "🔥 Limited spots available! Apply now and take your first step.",
+  "hero": {
+    "tag": "/// ONLINE BODYBUILDING COACHING",
+    "title": "FOCUS ON\nYOUR GOALS,\nLEAVE THE\nREST TO US",
+    "subtitle": "10 years of experience with a scientific approach. Personalized training and nutrition programs. Online coaching from anywhere in the world.",
+    "cta": "APPLY NOW",
+    "cta2": "VIEW PACKAGES"
+  },
+  "stats": {
+    "title": "HOW DOES THE SYSTEM WORK?",
+    "clients": "HAPPY CLIENTS",
+    "years": "YEARS EXPERIENCE",
+    "countries": "COUNTRIES",
+    "success": "SUCCESS RATE"
+  },
+  "packages": {
+    "tag": "/// PACKAGES",
+    "title": "COACHING SYSTEM\nTAILORED FOR YOU",
+    "subtitle": "Every individual has different goals. Choose the right package and start your transformation.",
+    "popular": "MOST POPULAR",
+    "currency": "€",
+    "whatsapp": "APPLY VIA WHATSAPP",
+    "features": {
+      "training": "Personalized training program",
+      "nutrition_basic": "Basic nutrition guidance",
+      "nutrition_detail": "Detailed nutrition plan",
+      "nutrition_full": "Full training + nutrition + lifestyle",
+      "goal": "Goal analysis (muscle gain / fat loss)",
+      "updates": "Program updates throughout the process",
+      "support": "Online support (WhatsApp / Email)",
+      "checkin": "Weekly check-ins",
+      "form": "Form & technique feedback (online)",
+      "checkin_detail": "Weekly detailed evaluation",
+      "updates_frequent": "Frequent program updates",
+      "priority": "Priority communication & fast response",
+      "max_result": "Maximum results-focused system",
+      "active_support": "Active WhatsApp support"
+    },
+    "items": [
+      {
+        "id": "starter",
+        "name": "STARTER",
+        "color": "gray",
+        "duration": "6 Weeks",
+        "price": "75",
+        "description": "Perfect for beginners who want to start with a structured system.",
+        "tag": "👉 Ideal for building a strong foundation",
+        "features": ["training", "goal", "nutrition_basic", "updates", "support"],
+        "whatsapp_msg": "Hello, I would like to get information about the Starter Package."
+      },
+      {
+        "id": "pro",
+        "name": "PRO",
+        "color": "red",
+        "duration": "12 Weeks",
+        "price": "125",
+        "description": "Most popular package for real and sustainable transformation.",
+        "tag": "👉 Best choice for visible and consistent results",
+        "features": ["training", "nutrition_detail", "checkin", "form", "updates", "active_support"],
+        "whatsapp_msg": "Hello, I would like to get information about the Pro Package."
+      },
+      {
+        "id": "elite",
+        "name": "ELITE",
+        "color": "gold",
+        "duration": "16 Weeks",
+        "price": "175",
+        "description": "Maximum transformation with full accountability and support.",
+        "tag": "👉 For serious clients who want elite-level transformation",
+        "features": ["nutrition_full", "checkin_detail", "updates_frequent", "priority", "max_result"],
+        "whatsapp_msg": "Hello, I would like to get information about the Elite Package."
+      }
+    ]
+  },
+  "about": {
+    "tag": "/// WHO AM I?",
+    "title": "CAYIT YÜKSEL",
+    "subtitle": "Level 1 Bodybuilding Coach",
+    "bio1": "Hi, I'm Cayit Yüksel, a Level 1 Bodybuilding Coach based in Turkey with approximately 10 years of fitness and bodybuilding experience.",
+    "bio2": "Through the knowledge and experience I've gained over the years, I work with clients from different countries around the world through an online coaching system. My goal is to turn muscle gain, fat loss, strength increase, and bodybuilding goals into reality in a scientific and sustainable way.",
+    "bio3": "My goal is not just physical change; it's to instill discipline, consistency, and a long-term lifestyle transformation.",
+    "expertise": "My Areas of Expertise",
+    "areas": [
+      "Muscle Development & Volume Increase",
+      "Fat Loss & Body Recomp",
+      "Strength & Performance Development",
+      "Online 1-1 Coaching",
+      "Personalized Programming",
+      "Regular Tracking & Progress Analysis"
+    ],
+    "cta": "LEARN MORE"
+  },
+  "transformations": {
+    "tag": "/// TRANSFORMATIONS",
+    "title": "SUCCESS STORIES",
+    "before": "BEFORE",
+    "after": "AFTER",
+    "see_all": "SEE ALL",
+    "empty": "Success stories coming soon."
+  },
+  "testimonials": {
+    "tag": "/// SATISFACTION",
+    "title": "WHAT DO CLIENTS SAY?",
+    "empty": "Client reviews coming soon."
+  },
+  "social": {
+    "tag": "/// SOCIAL MEDIA",
+    "title": "CAYIT YÜKSEL\nON SOCIAL MEDIA",
+    "subtitle": "Follow for free content and motivation!",
+    "follow": "FOLLOW"
+  },
+  "apply": {
+    "tag": "/// APPLY",
+    "title": "ARE YOU READY?",
+    "subtitle": "Change doesn't happen by waiting — it happens by starting.",
+    "cta": "FILL THE FORM"
+  },
+  "contact": {
+    "tag": "/// CONTACT",
+    "title": "GET IN TOUCH",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "instagram": "Instagram"
+  },
+  "footer": {
+    "tagline": "A system built to transform you. Discipline, consistency, transformation.",
+    "packages": "Packages",
+    "corporate": "Corporate",
+    "other": "Other",
+    "kvkk": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2026 Cayit Yüksel. All rights reserved."
+  }
+}

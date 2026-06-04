@@ -1,0 +1,144 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımda",
+    "packages": "Paketler",
+    "apply": "Başvur",
+    "contact": "İletişim",
+    "cta": "HEMEN BAŞLA"
+  },
+  "announcement": "🔥 Sınırlı kontenjan! Hemen başvur ve ilk adımı at.",
+  "hero": {
+    "tag": "/// ONLİNE BODYBUILDING KOÇLUĞU",
+    "title": "HEDEFLERINE\nODAKLAN,\nGERİSİNİ\nHALLEDELİM",
+    "subtitle": "10 yıllık deneyim ve bilimsel yaklaşımla sana özel antrenman ve beslenme programları. Dünyanın her yerinden online koçluk.",
+    "cta": "HEMEN BAŞVUR",
+    "cta2": "PAKETLERİ İNCELE"
+  },
+  "stats": {
+    "title": "SİSTEM NASIL ÇALIŞIYOR?",
+    "clients": "MUTLU DANIŞAN",
+    "years": "DENEYİMLİ YIL",
+    "countries": "ÜLKEDEN MÜŞTERİ",
+    "success": "BAŞARI ORANI"
+  },
+  "packages": {
+    "tag": "/// PAKETLER",
+    "title": "SANA ÖZEL\nKOÇLUK SİSTEMİ",
+    "subtitle": "Her bireyin hedefi farklıdır. Sana en uygun paketi seç ve dönüşümünü başlat.",
+    "popular": "EN POPÜLER",
+    "currency": "TL",
+    "whatsapp": "WHATSAPP'TAN BAŞVUR",
+    "features": {
+      "training": "Kişiye özel antrenman programı",
+      "nutrition_basic": "Temel beslenme yönlendirmesi",
+      "nutrition_detail": "Detaylı beslenme planı",
+      "nutrition_full": "Tam antrenman + beslenme + yaşam tarzı",
+      "goal": "Hedef analizi (kas kazanımı / yağ kaybı)",
+      "updates": "Süre boyunca program güncellemeleri",
+      "support": "Online destek (WhatsApp / e-posta)",
+      "checkin": "Haftalık check-in (online takip)",
+      "form": "Form ve teknik analizi",
+      "checkin_detail": "Haftalık detaylı değerlendirme",
+      "updates_frequent": "Sık program güncellemeleri",
+      "priority": "Öncelikli iletişim ve hızlı geri dönüş",
+      "max_result": "Maksimum sonuç odaklı sistem",
+      "active_support": "Aktif WhatsApp desteği"
+    },
+    "items": [
+      {
+        "id": "starter",
+        "name": "STARTER",
+        "color": "gray",
+        "duration": "6 Hafta",
+        "price": "3.000",
+        "description": "Spor hayatına düzenli bir başlangıç yapmak isteyenler için.",
+        "tag": "👉 Yeni başlayanlar için sağlam bir temel",
+        "features": ["training", "goal", "nutrition_basic", "updates", "support"],
+        "whatsapp_msg": "Merhaba, Starter Paket hakkında bilgi almak istiyorum."
+      },
+      {
+        "id": "pro",
+        "name": "PRO",
+        "color": "red",
+        "duration": "12 Hafta",
+        "price": "5.000",
+        "description": "En çok tercih edilen ve en iyi sonuç alınan sistem.",
+        "tag": "👉 Gerçek ve sürdürülebilir gelişim isteyenler için",
+        "features": ["training", "nutrition_detail", "checkin", "form", "updates", "active_support"],
+        "whatsapp_msg": "Merhaba, Pro Paket hakkında bilgi almak istiyorum."
+      },
+      {
+        "id": "elite",
+        "name": "ELITE",
+        "color": "gold",
+        "duration": "16 Hafta",
+        "price": "7.000",
+        "description": "Maksimum dönüşüm ve birebir takip isteyenler için.",
+        "tag": "👉 Ciddi fiziksel dönüşüm hedefleyenler için premium paket",
+        "features": ["nutrition_full", "checkin_detail", "updates_frequent", "priority", "max_result"],
+        "whatsapp_msg": "Merhaba, Elite Paket hakkında bilgi almak istiyorum."
+      }
+    ]
+  },
+  "about": {
+    "tag": "/// KİMDİR?",
+    "title": "CAYİT YÜKSEL",
+    "subtitle": "Level 1 Bodybuilding Coach",
+    "bio1": "Merhaba, ben Cayit Yüksel, Türkiye'de yaşayan 1. Kademe Vücut Geliştirme Antrenörüyüm ve yaklaşık 10 yıllık fitness ve vücut geliştirme deneyimine sahibim.",
+    "bio2": "Uzun yıllardır edindiğim bilgi ve tecrübelerle, online koçluk hizmeti sunarak dünyanın farklı ülkelerinden danışanlara ulaşan bir sistemle çalışıyorum. Amacım; kas kazanımı, yağ kaybı, kuvvet artışı ve vücut geliştirme hedeflerini bilimsel ve sürdürülebilir bir şekilde gerçeğe dönüştürmektir.",
+    "bio3": "Hedefim sadece fiziksel değişim değil; disiplin, istikrar ve uzun vadeli bir yaşam tarzı dönüşümü kazandırmaktır.",
+    "expertise": "Uzmanlık Alanlarım",
+    "areas": [
+      "Kas Gelişimi ve Hacim Artışı",
+      "Yağ Kaybı ve Vücut Recomp",
+      "Kuvvet ve Performans Gelişimi",
+      "Online 1-1 Koçluk",
+      "Kişiye Özel Programlama",
+      "Düzenli Takip ve Gelişim Analizi"
+    ],
+    "cta": "DAHA FAZLA BİLGİ AL"
+  },
+  "transformations": {
+    "tag": "/// DÖNÜŞÜMLER",
+    "title": "BAŞARI HİKAYELERİ",
+    "before": "ÖNCESİ",
+    "after": "SONRASI",
+    "see_all": "TÜMÜNÜ GÖR",
+    "empty": "Başarı hikayeleri yakında eklenecek."
+  },
+  "testimonials": {
+    "tag": "/// MEMNUNİYET",
+    "title": "KULLANANLAR NE DİYOR?",
+    "empty": "Müşteri yorumları yakında eklenecek."
+  },
+  "social": {
+    "tag": "/// SOSYAL MEDYA",
+    "title": "SOSYAL MEDYADA\nCAYİT YÜKSEL",
+    "subtitle": "Ücretsiz içerikler ve motivasyon için takip et!",
+    "follow": "TAKİP ET"
+  },
+  "apply": {
+    "tag": "/// BAŞVURU",
+    "title": "HAZIR MISIN?",
+    "subtitle": "Değişim beklemekle değil, başlamakla olur.",
+    "cta": "FORMU DOLDUR"
+  },
+  "contact": {
+    "tag": "/// İLETİŞİM",
+    "title": "İLETİŞİME GEÇ",
+    "whatsapp": "WhatsApp",
+    "email": "E-posta",
+    "instagram": "Instagram"
+  },
+  "footer": {
+    "tagline": "Seni değiştirmek için kurduğum sistem. Disiplin, istikrar, dönüşüm.",
+    "packages": "Paketler",
+    "corporate": "Kurumsal",
+    "other": "Diğer",
+    "kvkk": "KVKK Politikası",
+    "cookies": "Çerez Politikası",
+    "terms": "Kullanım Koşulları",
+    "copyright": "© 2026 Cayit Yüksel. Tüm hakları saklıdır."
+  }
+}
