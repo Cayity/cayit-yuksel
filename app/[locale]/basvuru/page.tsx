@@ -185,7 +185,7 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
 
   return (
     <main style={{ minHeight: '100vh', background: '#161616' }}>
-      <Navbar locale={locale} messages={navMessages} />
+      <Navbar locale={locale} messages={navMessages as unknown as Record<string, Record<string, string>>} />
 
       {/* Page header */}
       <div style={{ paddingTop: '120px', paddingBottom: '2rem', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#111' }}>
