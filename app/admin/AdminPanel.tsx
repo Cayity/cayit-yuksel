@@ -137,6 +137,13 @@ export default function AdminPanel({ initialContent }: Props) {
           <a href="/tr" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', color: '#6b7280', textDecoration: 'none', fontSize: '13px', borderRadius: '6px' }}>
             <ExternalLink size={14} /> Siteyi Gör
           </a>
+          <button
+            onClick={async () => { await fetch('/admin/api/logout', { method: 'POST' }); window.location.href = '/admin/login' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontSize: '13px', borderRadius: '6px', width: '100%', textAlign: 'left' }}
+          >
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Çıkış Yap
+          </button>
         </div>
       </aside>
 

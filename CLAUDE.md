@@ -54,9 +54,9 @@ public/images/               — Yüklenen fotoğraflar
 7. Deploy: cPanel Node.js Selector (GitHub repo müşteri hesabı bekleniyor)
 
 ## Deploy Durumu
-- GitHub: müşteri hesabı bekleniyor (developer collaborator olarak eklenecek)
-- Hosting: guzelhosting.net Premium-D — cPanel + Node.js Selector mevcut ✅
-- Domain: cayityuksel.com
+- Vercel'e deploy edildi ✅
+- Domain: cayityuksel.com — Nameserver'lar güzelhosting'de ns1/ns2.vercel-dns.com olarak değiştirildi, DNS yayılması bekleniyor
+- **Vercel'de eklenecek env var'lar:** `ADMIN_PASSWORD` ve `ADMIN_TOKEN` (Vercel Dashboard → Settings → Environment Variables)
 
 ## Geliştirme
 ```bash
