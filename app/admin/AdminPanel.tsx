@@ -62,7 +62,7 @@ export default function AdminPanel({ initialContent }: Props) {
     await fetch('/api/admin/images', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filename: img.split('/').pop() }),
+      body: JSON.stringify({ filename: img }),
     })
     await fetchImages()
   }
