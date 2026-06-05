@@ -120,7 +120,7 @@ export default async function KVKKPage({ params }: { params: Promise<{ locale: s
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {t.sections.map((section, i) => (
               <div key={i} style={{ borderLeft: '3px solid #dc2626', paddingLeft: '1.5rem' }}>
-                <h2 style={{ fontSize: '1rem', fontWeight: 800, color: 'white', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
+                <h2 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'white', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
                   {section.heading}
                 </h2>
                 <p style={{ color: '#9ca3af', lineHeight: 1.8, fontSize: '0.95rem' }}>
