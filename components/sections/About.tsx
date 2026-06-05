@@ -71,7 +71,7 @@ export default function About({ locale, messages, content }: Props) {
 
             {/* Expertise */}
             <div>
-              <h3 style={{ color: 'white', fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <h3 style={{ color: 'white', fontWeight: 700, fontSize: '1.8rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 {t.expertise as string}
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
