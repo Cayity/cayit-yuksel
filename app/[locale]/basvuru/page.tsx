@@ -195,7 +195,7 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   const sectionTitle = (text: string) => (
     <div className="flex items-center gap-3 mt-8 mb-4">
       <div className="h-px flex-1 bg-white/10" />
-      <h3 className="text-red-500 font-black text-sm tracking-widest uppercase whitespace-nowrap">{text}</h3>
+      <h3 style={{ color: '#ef4444', fontWeight: 900, fontSize: '1.1rem', letterSpacing: '0.15em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{text}</h3>
       <div className="h-px flex-1 bg-white/10" />
     </div>
   )
