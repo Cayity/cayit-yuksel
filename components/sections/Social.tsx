@@ -58,7 +58,7 @@ export default function Social({ locale, messages, content }: Props) {
           {/* Sol — başlık + platform kartları */}
           <div>
             <p className="section-tag">{t.tag}</p>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.25, color: 'white', marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.25, color: 'white', marginBottom: '1rem' }}>
               {t.title.split('\n').map((line, i) => (
                 <span key={i} style={{ display: 'block' }}>{line}</span>
               ))}

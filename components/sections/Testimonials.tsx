@@ -75,7 +75,7 @@ export default function Testimonials({ locale, messages, content }: Props) {
             <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
               {t?.tag || 'MEMNUNİYET'}
             </p>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', margin: 0 }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', margin: 0 }}>
               {t?.title || 'KULLANANLAR NE DİYOR?'}
             </h2>
           </div>

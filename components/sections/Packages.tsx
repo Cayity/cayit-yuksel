@@ -47,7 +47,7 @@ export default function Packages({ locale, messages }: Props) {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem', paddingTop: '50px' }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>{t.tag as string}</p>
-          <h2 style={{ fontSize: '1.1rem', fontWeight: 900, lineHeight: 1.25, textTransform: 'uppercase', color: 'white', margin: 0 }}>
+          <h2 style={{ fontSize: '2rem', fontWeight: 900, lineHeight: 1.25, textTransform: 'uppercase', color: 'white', margin: 0 }}>
             {(t.title as string).split('\n').map((line, i) => (
               <span key={i} style={{ display: 'block' }}>{line}</span>
             ))}
