@@ -446,7 +446,7 @@ export default function AdminPanel({ initialContent }: Props) {
                       <label style={lbl}>Paragraf {i + 1}</label>
                       <textarea
                         style={{ ...inp, minHeight: '80px', resize: 'vertical' }}
-                        value={(content.about as unknown as Record<string, string>)[key] || ''}
+                        value={(content.about[key as keyof typeof content.about] as string) || ''}
                         onChange={(e) => update(`about.${key}`, e.target.value)}
                       />
                     </div>
