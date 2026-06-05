@@ -84,7 +84,7 @@ export default function Navbar({ locale, messages, content }: Props) {
           borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
         }}
       >
-        <nav style={{
+        <nav className="navbar-nav" style={{
           maxWidth: '1280px', margin: '0 auto',
           padding: '0 32px', height: '68px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '24px',
@@ -139,7 +139,7 @@ export default function Navbar({ locale, messages, content }: Props) {
               onClick={() => setOpen(!open)}
               aria-label={open ? 'Menüyü kapat' : 'Menüyü aç'}
               className="navbar-hamburger"
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'white', padding: '4px', lineHeight: 0 }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'white', padding: '0', lineHeight: 0 }}
             >
               {open ? <X size={26} /> : <Menu size={26} />}
             </button>
@@ -214,11 +214,13 @@ export default function Navbar({ locale, messages, content }: Props) {
         .navbar-cta     { display: none !important; }
         .navbar-hamburger { display: flex; }
         .navbar-overlay { display: flex; }
+        .navbar-nav { padding: 0 20px !important; }
         @media (min-width: 1024px) {
           .navbar-links     { display: flex; }
           .navbar-cta       { display: inline-flex !important; }
           .navbar-hamburger { display: none; }
           .navbar-overlay   { display: none !important; }
+          .navbar-nav { padding: 0 32px !important; }
         }
       `}</style>
     </>
