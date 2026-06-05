@@ -101,12 +101,11 @@ export default function Social({ locale, messages, content }: Props) {
                       {p.followers && (
                         <div style={{
                           background: '#dc2626', color: 'white',
-                          fontWeight: 900, fontSize: '13px', letterSpacing: '0.08em',
+                          fontWeight: 900, fontSize: '18px', letterSpacing: '0.08em',
                           padding: '2px 8px', borderRadius: '3px',
                           fontFamily: 'var(--font-bebas), "Bebas Neue", sans-serif',
-                        fontSize: '18px',
-                        lineHeight: 1,
-                        display: 'flex', alignItems: 'center',
+                          lineHeight: 1,
+                          display: 'flex', alignItems: 'center',
                         }}>
                           {formatFollowers(p.followers)}
                         </div>
