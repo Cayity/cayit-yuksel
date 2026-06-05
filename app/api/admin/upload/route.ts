@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
     if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true })
     fs.writeFileSync(path.join(uploadDir, filename), buffer)
     return NextResponse.json({ path: `/images/${filename}` })
-  } catch {
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('[upload] error:', msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }
