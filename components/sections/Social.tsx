@@ -10,6 +10,15 @@ interface Props {
   content: SiteContent
 }
 
+function formatFollowers(val: string): string {
+  if (!val) return ''
+  const num = parseInt(val.replace(/[^0-9]/g, ''), 10)
+  if (isNaN(num)) return val // zaten formatlanmış (35K gibi)
+  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(num % 1_000_000 === 0 ? 0 : 1)}M+`
+  if (num >= 1_000) return `${Math.floor(num / 1_000)}K+`
+  return `${num}+`
+}
+
 export default function Social({ locale, messages, content }: Props) {
   const t = messages.social as Record<string, string>
   const { instagram, tiktok, youtube } = content.social
@@ -87,8 +96,19 @@ export default function Social({ locale, messages, content }: Props) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ color: '#6b7280', fontSize: '11px', fontWeight: 700, letterSpacing: '0.15em' }}>{p.name}</div>
-                    <div style={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>{p.handle}</div>
-                    {p.followers && <div style={{ color: '#dc2626', fontWeight: 900, fontSize: '18px' }}>{p.followers}</div>}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                      <div style={{ color: 'white', fontWeight: 700, fontSize: '16px' }}>{p.handle}</div>
+                      {p.followers && (
+                        <div style={{
+                          background: '#dc2626', color: 'white',
+                          fontWeight: 900, fontSize: '13px', letterSpacing: '0.08em',
+                          padding: '2px 8px', borderRadius: '3px',
+                          fontFamily: 'var(--font-bebas), "Bebas Neue", sans-serif',
+                        }}>
+                          {formatFollowers(p.followers)}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div style={{ color: '#dc2626', fontWeight: 800, fontSize: '12px', letterSpacing: '0.1em' }}>
                     {t.follow} ▶
