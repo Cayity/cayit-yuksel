@@ -102,7 +102,7 @@ export default function Social({ locale, messages, content }: Props) {
                         <div style={{
                           background: '#dc2626', color: 'white',
                           fontWeight: 900, fontSize: '18px', letterSpacing: '0.08em',
-                          padding: '2px 8px', borderRadius: '3px',
+                          padding: '4px 8px 3px', borderRadius: '3px',
                           fontFamily: 'var(--font-bebas), "Bebas Neue", sans-serif',
                           lineHeight: 1,
                           display: 'flex', alignItems: 'center',
