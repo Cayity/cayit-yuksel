@@ -87,7 +87,7 @@ export default function Hero({ locale, messages, content }: Props) {
         .hero-outline-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.6) !important; }
         @media (max-width: 1023px) {
           .hero-section { align-items: flex-start !important; min-height: 70vh !important; }
-          .hero-content { padding-top: 7rem !important; padding-bottom: 2rem !important; }
+          .hero-content { padding-top: 9rem !important; padding-bottom: 2rem !important; }
           .hero-bg { background-position: 70% center !important; }
         }
       `}</style>
