@@ -77,7 +77,7 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
 
             {/* Sol — Biyografi */}
             <div>
-              <h2 style={{ fontSize: 'clamp(2rem, 2.5vw, 2.2rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: 'clamp(2.4rem, 2.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '2rem' }}>
                 {locale === 'tr' ? 'Benim Hikayem' : 'My Story'}
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', color: '#d1d5db', lineHeight: 1.8, fontSize: '1rem' }}>
@@ -104,7 +104,7 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
 
             {/* Sağ — Uzmanlık + Sertifikalar */}
             <div>
-              <h2 style={{ fontSize: 'clamp(2rem, 2.5vw, 2.2rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: 'clamp(2.4rem, 2.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '2rem' }}>
                 {t.expertise as string}
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '3rem' }}>
@@ -117,7 +117,7 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
               </div>
 
               {/* Sertifikalar */}
-              <h2 style={{ fontSize: 'clamp(2rem, 2.5vw, 2.2rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
+              <h2 style={{ fontSize: 'clamp(2.4rem, 2.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
                 {locale === 'tr' ? 'Sertifikalar' : 'Certifications'}
               </h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
