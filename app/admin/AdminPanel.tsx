@@ -424,9 +424,14 @@ export default function AdminPanel({ initialContent }: Props) {
                         if (!file) return
                         const fd = new FormData()
                         fd.append('file', file)
-                        const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
-                        const data = await res.json()
-                        if (data.path) update('socialPhotos', [...(content.socialPhotos || []), data.path])
+                        try {
+                          const res = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+                          const data = await res.json()
+                          if (data.path) update('socialPhotos', [...(content.socialPhotos || []), data.path])
+                          else alert('Yükleme hatası: ' + (data.error || 'Bilinmeyen hata'))
+                        } catch (err) {
+                          alert('Yükleme başarısız: ' + err)
+                        }
                         e.target.value = ''
                       }} />
                     </label>
