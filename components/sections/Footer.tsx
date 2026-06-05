@@ -26,8 +26,8 @@ export default function Footer({ locale, content }: Props) {
             />
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '36px', height: '36px', background: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, color: 'white', fontSize: '13px', borderRadius: '2px' }}>CY</div>
-              <span style={{ fontWeight: 900, color: 'white', fontSize: '16px', letterSpacing: '0.04em' }}>CAYİT YÜKSEL</span>
+              <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #dc2626 0%, #ff4444 60%, #ff6b35 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, color: 'white', fontSize: '18px', borderRadius: '2px', flexShrink: 0 }}>CY</div>
+              <span style={{ fontFamily: 'var(--font-bebas), "Bebas Neue", sans-serif', color: 'white', fontSize: '36px', letterSpacing: '0.08em', lineHeight: 1, fontWeight: 900 }}>CAYİT YÜKSEL</span>
             </div>
           )}
         </a>
@@ -43,9 +43,19 @@ export default function Footer({ locale, content }: Props) {
           +90 544 571 55 43
         </a>
 
+        {/* Legal links */}
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <a href={`/${locale}/kvkk`} className="footer-legal-link">
+            {locale === 'tr' ? 'KVKK' : 'Privacy Notice'}
+          </a>
+          <a href={`/${locale}/gizlilik`} className="footer-legal-link">
+            {locale === 'tr' ? 'Gizlilik & Çerez' : 'Privacy & Cookies'}
+          </a>
+        </div>
+
         {/* Copyright */}
         <p style={{ color: '#4b5563', fontSize: '12px', margin: 0 }}>
-          © {year} Cayit Yüksel. Tüm hakları saklıdır.
+          © {year} Cayit Yüksel. {locale === 'tr' ? 'Tüm hakları saklıdır.' : 'All rights reserved.'}
         </p>
       </div>
     </footer>

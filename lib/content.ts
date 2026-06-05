@@ -68,6 +68,7 @@ export interface SiteContent {
     en: string
     active: boolean
   }
+  gaId: string
 }
 
 const contentPath = path.join(process.cwd(), 'data', 'content.json')
@@ -152,7 +153,8 @@ const defaultContent: SiteContent = {
     tr: '🔥 Sınırlı kontenjan! Hemen başvur ve ilk adımı at.',
     en: '🔥 Limited spots available! Apply now and take your first step.',
     active: true
-  }
+  },
+  gaId: '',
 }
 
 export function getContent(): SiteContent {
@@ -170,6 +172,7 @@ export function getContent(): SiteContent {
         announcement: { ...defaultContent.announcement, ...(saved.announcement || {}) },
         slogan: { ...defaultContent.slogan, ...(saved.slogan || {}) },
         stats: { ...defaultContent.stats, ...(saved.stats || {}) },
+        gaId: saved.gaId ?? defaultContent.gaId,
       }
     }
   } catch {

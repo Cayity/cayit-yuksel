@@ -1,3 +1,5 @@
+import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
+
 export default async function LocaleLayout({
   children,
   params,
@@ -5,5 +7,10 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <WhatsAppFloat />
+    </>
+  )
 }

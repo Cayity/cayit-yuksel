@@ -42,7 +42,7 @@ function StatItem({ value, suffix, prefix, label, active }: {
 
   return (
     <div style={{ textAlign: 'center', padding: '0 24px' }}>
-      <div style={{ fontSize: '2.8rem', fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '-0.02em' }}>
+      <div style={{ fontSize: '2.8rem', fontWeight: 900, color: 'white', lineHeight: 1 }}>
         {prefix}{count}{suffix}
       </div>
       <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '11px', fontWeight: 700, letterSpacing: '0.12em', marginTop: '8px', textTransform: 'uppercase' }}>
@@ -88,8 +88,13 @@ export default function Stats({ locale, messages, content }: Props) {
         {/* Desktop */}
         <div className="stats-desktop" style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
           <div style={{ flexShrink: 0, paddingRight: '40px' }}>
-            <h2 style={{ color: 'white', fontWeight: 900, fontSize: '22px', textTransform: 'uppercase', letterSpacing: '0.08em', fontStyle: 'italic', margin: 0, whiteSpace: 'nowrap' }}>
-              {t.title}
+            <h2 style={{ color: 'white', fontWeight: 900, textTransform: 'uppercase', fontStyle: 'italic', margin: 0, whiteSpace: 'nowrap', lineHeight: 1.05 }}>
+              <span style={{ display: 'block', fontSize: '59px', letterSpacing: '2.5px' }}>
+                {t.title.split(' ')[0]}
+              </span>
+              <span style={{ display: 'block', fontSize: '22px', letterSpacing: '0.08em' }}>
+                {t.title.split(' ').slice(1).join(' ')}
+              </span>
             </h2>
           </div>
           <div style={{ width: '1px', height: '56px', background: 'rgba(255,255,255,0.3)', flexShrink: 0 }} />
@@ -104,8 +109,13 @@ export default function Stats({ locale, messages, content }: Props) {
 
         {/* Mobile */}
         <div className="stats-mobile" style={{ display: 'none', flexDirection: 'column', gap: '16px' }}>
-          <h2 style={{ color: 'white', fontWeight: 900, fontSize: '18px', textTransform: 'uppercase', letterSpacing: '0.08em', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
-            {t.title}
+          <h2 style={{ color: 'white', fontWeight: 900, textTransform: 'uppercase', fontStyle: 'italic', margin: 0, textAlign: 'center', lineHeight: 1.05 }}>
+            <span style={{ display: 'block', fontSize: '44px', letterSpacing: '2.5px' }}>
+              {t.title.split(' ')[0]}
+            </span>
+            <span style={{ display: 'block', fontSize: '16px', letterSpacing: '0.08em' }}>
+              {t.title.split(' ').slice(1).join(' ')}
+            </span>
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
             {stats.map((stat, i) => (

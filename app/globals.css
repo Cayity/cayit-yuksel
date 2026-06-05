@@ -25,8 +25,13 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--white);
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Inter, Arial, sans-serif;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bebas), 'Bebas Neue', Arial, sans-serif;
+  letter-spacing: 2.5px;
 }
 
 .section-tag {
@@ -49,7 +54,6 @@ body {
   font-weight: 900;
   line-height: 1.05;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
   color: var(--white);
 }
 
@@ -121,4 +125,27 @@ body {
     padding-bottom: 32px !important;
     margin-top: 0 !important;
   }
+
+  /* Sayfa hero'ları (Hakkımda, Paketler, SSS, Başvuru, İletişim) */
+  .page-hero {
+    min-height: unset !important;
+    align-items: flex-start !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .page-hero-content {
+    padding-top: 56px !important;
+    padding-bottom: 16px !important;
+  }
+}
+
+.footer-legal-link {
+  color: #4b5563;
+  font-size: 11px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.footer-legal-link:hover {
+  color: #9ca3af;
 }

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
@@ -8,6 +9,33 @@ import { Mail, Clock, MapPin, MessageCircle } from 'lucide-react'
 import InstagramIcon from '@/components/ui/InstagramIcon'
 
 const locales = ['tr', 'en']
+
+const BASE_URL = 'https://cayityuksel.com'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const isTR = locale === 'tr'
+  const title = isTR ? 'İletişim | Cayit Yüksel' : 'Contact | Cayit Yüksel'
+  const description = isTR
+    ? 'Cayit Yüksel ile iletişime geçin. WhatsApp, e-posta veya Instagram üzerinden ulaşın.'
+    : 'Get in touch with Cayit Yüksel. Reach via WhatsApp, email or Instagram.'
+  const url = `${BASE_URL}/${locale}/iletisim`
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'Cayit Yüksel',
+      locale: isTR ? 'tr_TR' : 'en_US',
+      type: 'website',
+      images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630, alt: title }],
+    },
+    twitter: { card: 'summary_large_image', title, description, images: [`${BASE_URL}/opengraph-image`] },
+  }
+}
 
 export default async function IletisimPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -60,17 +88,17 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
       <Navbar locale={locale} messages={messages} content={content} />
 
       {/* Hero */}
-      <section style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
+      <section className="page-hero" style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <Image src={content.aboutImage} alt="İletişim" fill style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="100vw" className="grayscale" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.85) 60%, #0a0a0a 100%)' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.5) 0%, transparent 50%, rgba(10,10,10,0.5) 100%)' }} />
         </div>
-        <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
+        <div className="page-hero-content" style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
             {isTR ? '/// İLETİŞİM' : '/// CONTACT'}
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '1rem' }}>
             {isTR ? 'İLETİŞİME GEÇ' : 'GET IN TOUCH'}
           </h1>
           <p style={{ color: '#9ca3af', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -180,7 +208,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
 
         {/* SSS benzeri kısa sorular */}
         <div style={{ maxWidth: '1280px', margin: '3rem auto 0', padding: '0 2rem' }}>
-          <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.02em', color: 'white', marginBottom: '1.5rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
             {isTR ? 'SIKÇA SORULANLAR' : 'QUICK FAQ'}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: 'rgba(255,255,255,0.06)' }}>

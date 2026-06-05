@@ -14,7 +14,7 @@ const WHATSAPP_NUMBER = '905445715543'
 
 const TR = {
   title: 'ONLINE COACHING BAŞVURU FORMU',
-  subtitle: 'Cayit Yüksel | Online Bodybuilding Coach',
+  subtitle: 'CAYİT YÜKSEL | Online Bodybuilding Coach',
   sections: {
     personal: '1. KİŞİSEL BİLGİLER',
     goal: '2. HEDEF BİLGİLERİ',
@@ -32,7 +32,7 @@ const TR = {
 
 const EN = {
   title: 'ONLINE COACHING APPLICATION FORM',
-  subtitle: 'Cayit Yüksel | Online Bodybuilding Coach',
+  subtitle: 'CAYİT YÜKSEL | Online Bodybuilding Coach',
   sections: {
     personal: '1. PERSONAL INFORMATION',
     goal: '2. GOAL INFORMATION',
@@ -61,13 +61,31 @@ function buildWhatsappMessage(data: Record<string, string>, locale: string) {
 
 export default function BasvuruPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = use(params)
-  const t = locale === 'tr' ? TR : EN
+  const isTR = locale === 'tr'
+  const t = isTR ? TR : EN
   const [form, setForm] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
 
-  const set = (key: string, value: string) => setForm((f) => ({ ...f, [key]: value }))
+  const set = (key: string, value: string) => {
+    setForm((f) => ({ ...f, [key]: value }))
+    if (errors[key]) setErrors((e) => { const n = { ...e }; delete n[key]; return n })
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const newErrors: Record<string, string> = {}
+    if (!form['Ad Soyad']?.trim()) {
+      newErrors['Ad Soyad'] = isTR ? 'Ad Soyad zorunludur.' : 'Full name is required.'
+    }
+    if (!form['Hedef']?.trim()) {
+      newErrors['Hedef'] = isTR ? 'En az bir hedef seçmelisiniz.' : 'Please select at least one goal.'
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      const firstKey = Object.keys(newErrors)[0]
+      document.querySelector(`[data-field="${firstKey}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      return
+    }
     const msg = buildWhatsappMessage(form, locale)
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank')
   }
@@ -93,17 +111,18 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   }
 
   const input = (label: string, key: string, type = 'text', placeholder = '') => (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div data-field={key} style={{ display: 'flex', flexDirection: 'column' }}>
       <label style={labelStyle}>{label}</label>
       <input
         type={type}
         placeholder={placeholder}
         value={form[key] || ''}
         onChange={(e) => set(key, e.target.value)}
-        style={inputStyle}
-        onFocus={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderColor = '#dc2626' }}
-        onBlur={e => { e.currentTarget.style.background = '#1a1a1a'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderLeftColor = '#dc2626' }}
+        style={{ ...inputStyle, borderColor: errors[key] ? '#ef4444' : 'rgba(255,255,255,0.1)' }}
+        onFocus={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderLeftColor = '#dc2626' }}
+        onBlur={e => { e.currentTarget.style.background = '#1a1a1a'; e.currentTarget.style.borderColor = errors[key] ? '#ef4444' : 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderLeftColor = '#dc2626' }}
       />
+      {errors[key] && <span style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '4px' }}>{errors[key]}</span>}
     </div>
   )
 
@@ -128,8 +147,8 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   )
 
   const checkbox = (label: string, key: string, options: string[]) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <label style={labelStyle}>{label}</label>
+    <div data-field={key} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <label style={{ ...labelStyle, color: errors[key] ? '#ef4444' : '#d1d5db' }}>{label}</label>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
         {options.map((opt) => {
           const checked = (form[key] || '').includes(opt)
@@ -155,6 +174,7 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
           )
         })}
       </div>
+      {errors[key] && <span style={{ color: '#ef4444', fontSize: '0.75rem' }}>{errors[key]}</span>}
     </div>
   )
 
@@ -180,7 +200,6 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
     </div>
   )
 
-  const isTR = locale === 'tr'
   const navMessages = isTR ? trMessages : enMessages
   const col2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem 2rem' }
   const colSpan: React.CSSProperties = { gridColumn: '1 / -1' }
@@ -195,17 +214,17 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
       <Navbar locale={locale} messages={navMessages as unknown as Record<string, Record<string, string>>} />
 
       {/* Page header — Paketler gibi */}
-      <section style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
+      <section className="page-hero" style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <Image src="/images/about.jpg" alt="Başvuru" fill style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="100vw" className="grayscale" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.85) 60%, #161616 100%)' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.5) 0%, transparent 50%, rgba(10,10,10,0.5) 100%)' }} />
         </div>
-        <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
+        <div className="page-hero-content" style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
             {locale === 'tr' ? '/// BAŞVURU' : '/// APPLY'}
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '1rem' }}>
             {t.title}
           </h1>
           <p style={{ color: '#9ca3af', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -214,10 +233,10 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
         </div>
       </section>
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <form onSubmit={handleSubmit} className="basvuru-form" style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
         {/* Row 1: Kişisel + Hedef */}
-        <div style={col2}>
+        <div className="form-col2" style={col2}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {sectionTitle(t.sections.personal)}
             {input(isTR ? 'Ad Soyad' : 'Full Name', 'Ad Soyad')}
@@ -241,7 +260,7 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
         </div>
 
         {/* Row 2: Antrenman + Beslenme */}
-        <div style={col2}>
+        <div className="form-col2" style={col2}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {sectionTitle(t.sections.training)}
             {radio(isTR ? 'Daha önce spor yaptın mı?' : 'Have you exercised before?', 'Spor Geçmişi', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
@@ -261,7 +280,7 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
         </div>
 
         {/* Row 3: Sağlık + Günlük Yaşam */}
-        <div style={col2}>
+        <div className="form-col2" style={col2}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {sectionTitle(t.sections.health)}
             {radio(isTR ? 'Herhangi bir kronik rahatsızlığın var mı?' : 'Any chronic conditions?', 'Kronik', isTR ? ['Evet', 'Hayır'] : ['Yes', 'No'])}
@@ -296,13 +315,20 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
         {/* Submit */}
         <button
           type="submit"
-          className="btn-primary w-full justify-center text-base py-5"
-          style={{ clipPath: 'none' }}
+          className="btn-primary w-full justify-center"
+          style={{ fontSize: '14px', padding: '1.1rem' }}
         >
           <Send size={18} />
           {t.submit}
         </button>
       </form>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .basvuru-form { padding: 1.5rem 1rem !important; gap: 1.25rem !important; }
+          .form-col2 { grid-template-columns: 1fr !important; gap: 1rem !important; }
+        }
+      `}</style>
     </main>
   )
 }

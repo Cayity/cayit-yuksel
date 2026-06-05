@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { SiteContent } from '@/lib/content'
 import {
   Save, Plus, Trash2, LayoutDashboard, Image as ImageIcon,
-  Star, Users, Settings, ExternalLink, Upload, X, Check
+  Star, Users, Settings, ExternalLink, Upload, X, Check, BarChart2
 } from 'lucide-react'
 import Image from 'next/image'
 
@@ -12,7 +12,7 @@ interface Props {
   initialContent: SiteContent
 }
 
-type Section = 'general' | 'about' | 'packages' | 'images' | 'transformations' | 'testimonials' | 'sponsor'
+type Section = 'general' | 'about' | 'packages' | 'images' | 'transformations' | 'testimonials' | 'sponsor' | 'entegrasyon'
 
 const NAV: { key: Section; label: string; icon: React.ReactNode }[] = [
   { key: 'general', label: 'Genel Ayarlar', icon: <Settings size={18} /> },
@@ -22,6 +22,7 @@ const NAV: { key: Section; label: string; icon: React.ReactNode }[] = [
   { key: 'transformations', label: 'Dönüşümler', icon: <Users size={18} /> },
   { key: 'testimonials', label: 'Yorumlar', icon: <Star size={18} /> },
   { key: 'sponsor', label: 'Sponsor', icon: <LayoutDashboard size={18} /> },
+  { key: 'entegrasyon', label: 'Entegrasyon', icon: <BarChart2 size={18} /> },
 ]
 
 export default function AdminPanel({ initialContent }: Props) {
@@ -809,6 +810,36 @@ export default function AdminPanel({ initialContent }: Props) {
                       <label style={lbl}>Logo</label>
                       <ImagePathInput value={content.sponsor.logo} onChange={(v) => update('sponsor.logo', v)} images={images} />
                     </div>
+                  </div>
+                )}
+              </Card>
+            </div>
+          )}
+
+          {section === 'entegrasyon' && (
+            <div className="max-w-2xl" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <Card title="Google Analytics 4">
+                <p style={{ color: '#9ca3af', fontSize: '13px', marginBottom: '16px', lineHeight: 1.6 }}>
+                  Google Analytics hesabınızdan aldığınız <strong style={{ color: '#d1d5db' }}>Measurement ID</strong>&apos;yi girin.
+                  Kaydettiğinizde site otomatik olarak ziyaretçi takibine başlar.
+                </p>
+                <label style={lbl}>Measurement ID</label>
+                <input
+                  style={{ ...inp, fontFamily: 'monospace', letterSpacing: '0.05em' }}
+                  value={content.gaId || ''}
+                  onChange={(e) => update('gaId', e.target.value)}
+                  placeholder="G-XXXXXXXXXX"
+                />
+                {content.gaId && (
+                  <div style={{ marginTop: '12px', padding: '10px 14px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '4px' }}>
+                    <span style={{ color: '#4ade80', fontSize: '12px', fontWeight: 600 }}>✓ Aktif — {content.gaId}</span>
+                  </div>
+                )}
+                {!content.gaId && (
+                  <div style={{ marginTop: '12px', padding: '10px 14px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px' }}>
+                    <span style={{ color: '#6b7280', fontSize: '12px' }}>
+                      Nasıl alınır? → analytics.google.com → Yönetici → Veri Akışları → Web → Measurement ID
+                    </span>
                   </div>
                 )}
               </Card>
