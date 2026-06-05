@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers()
   const locale = headersList.get('x-locale') || 'tr'
-  const { gaId } = getContent()
+  const { gaId } = await getContent()
   return (
     <html lang={locale} className={`${bebasNeue.variable} ${inter.variable}`}>
       <body>

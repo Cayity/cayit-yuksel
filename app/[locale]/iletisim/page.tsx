@@ -42,7 +42,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
   const isTR = locale === 'tr'
 
   const cards = [

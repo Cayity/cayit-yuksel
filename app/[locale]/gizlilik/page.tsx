@@ -91,7 +91,7 @@ export default async function GizlilikPage({ params }: { params: Promise<{ local
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
   const t = CONTENT[locale as 'tr' | 'en']
 
   return (

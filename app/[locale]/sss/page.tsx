@@ -41,7 +41,7 @@ export default async function SSSPage({ params }: { params: Promise<{ locale: st
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
 
   const faqMessages = messages.faq as Record<string, string>
 

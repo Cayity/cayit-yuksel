@@ -41,7 +41,7 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
   const t = messages.about as Record<string, unknown>
   const areas = t.areas as string[]
 

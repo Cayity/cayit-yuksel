@@ -66,20 +66,20 @@ app/globals.css              — Global stiller + mobil media query'ler
 9. ~~**`CAYİT` tutarsızlığı** — Başvuru sayfası alt başlığında `Cayit` yazıyor (büyük İ yok)~~ ✅
 10. ~~**OG image**~~ ✅ — `app/opengraph-image.tsx` (dinamik, 1200×630, foto05.jpg + metin overlay)
 
-## ⚠️ KRİTİK — Sonraki Adım: Vercel KV + Blob Entegrasyonu
-Vercel'de dosya sistemi read-only. Admin panelinden yapılan değişiklikler (content.json yazımı, fotoğraf yükleme) kalıcı değil — her deploy'da sıfırlanıyor.
+## ✅ Vercel KV + Blob Entegrasyonu TAMAMLANDI
 
-**Çözüm planı:**
-1. **Vercel KV (Redis)** — `content.json` içeriğini KV'de sakla
-   - `lib/content.ts` → `getContent()` KV'den okusun, `saveContent()` KV'ye yazsun
-   - API route: `/api/admin/content` → KV put/get
-2. **Vercel Blob** — Fotoğraf yüklemelerini Blob'da sakla
-   - `app/api/admin/upload/route.ts` → `put()` ile Blob'a yükle
-   - `app/api/admin/images/route.ts` → `list()` ile Blob'dan listele
-3. Vercel Dashboard'da KV ve Blob storage aktif edilmeli (ücretsiz)
-4. Env var'lar: `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `BLOB_READ_WRITE_TOKEN`
+- `lib/content.ts` → `getContent()` ve `saveContent()` async; KV öncelikli, lokal dosya fallback
+- `app/api/admin/upload/route.ts` → Blob `put()` ile yükleme; lokal fallback
+- `app/api/admin/images/route.ts` → Blob `list()` / `del()`; lokal fallback
+- Tüm sayfa ve layout'larda `await getContent()` güncellendi
+- Paket: `@vercel/kv` + `@vercel/blob` yüklü
 
-**Google Analytics** — `components/Analytics.tsx` hazır, admin paneli Entegrasyon sekmesinden GA ID girilince aktif olur (KV'ye taşınınca kalıcı olacak)
+**Deploy için yapılması gerekenler:**
+1. Vercel Dashboard → Integrations → **Upstash Redis** ekle (KV_REST_API_URL, KV_REST_API_TOKEN otomatik gelir)
+2. Vercel Dashboard → Storage → **Blob** oluştur (BLOB_READ_WRITE_TOKEN otomatik gelir)
+3. Deploy et — env var'lar yokken lokal dosya/klasör sistemi devreye girer
+
+**Google Analytics** — `components/Analytics.tsx` hazır, admin paneli Entegrasyon sekmesinden GA ID girilince aktif olur (KV'ye kalıcı kaydedilir)
 
 ## Tamamlananlar ✅
 - Admin panel şifre koruması

@@ -45,7 +45,7 @@ export default async function PaketlerPage({ params }: { params: Promise<{ local
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
   const t = messages.packages as Record<string, unknown>
 
   return (

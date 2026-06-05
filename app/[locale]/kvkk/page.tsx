@@ -99,7 +99,7 @@ export default async function KVKKPage({ params }: { params: Promise<{ locale: s
   if (!locales.includes(locale)) notFound()
 
   const messages = (await import(`@/messages/${locale}.json`)).default
-  const content = getContent()
+  const content = await getContent()
   const t = CONTENT[locale as 'tr' | 'en']
 
   return (

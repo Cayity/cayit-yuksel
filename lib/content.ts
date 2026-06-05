@@ -157,31 +157,62 @@ const defaultContent: SiteContent = {
   gaId: '',
 }
 
-export function getContent(): SiteContent {
+function mergeWithDefaults(saved: Partial<SiteContent>): SiteContent {
+  return {
+    ...defaultContent,
+    ...saved,
+    about: { ...defaultContent.about, ...(saved.about || {}) },
+    packages: saved.packages || defaultContent.packages,
+    social: { ...defaultContent.social, ...(saved.social || {}) },
+    socialPhotos: saved.socialPhotos || defaultContent.socialPhotos,
+    announcement: { ...defaultContent.announcement, ...(saved.announcement || {}) },
+    slogan: { ...defaultContent.slogan, ...(saved.slogan || {}) },
+    stats: { ...defaultContent.stats, ...(saved.stats || {}) },
+    gaId: saved.gaId ?? defaultContent.gaId,
+  }
+}
+
+const KV_KEY = 'site_content'
+
+function hasKV(): boolean {
+  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
+}
+
+export async function getContent(): Promise<SiteContent> {
+  // 1. Vercel KV (production)
+  if (hasKV()) {
+    try {
+      const { kv } = await import('@vercel/kv')
+      const saved = await kv.get<SiteContent>(KV_KEY)
+      if (saved) return mergeWithDefaults(saved)
+    } catch {
+      // KV erişim hatası — dosyaya düş
+    }
+  }
+
+  // 2. Lokal dosya (development fallback)
   try {
     if (fs.existsSync(contentPath)) {
       const raw = fs.readFileSync(contentPath, 'utf-8')
       const saved = JSON.parse(raw)
-      return {
-        ...defaultContent,
-        ...saved,
-        about: { ...defaultContent.about, ...(saved.about || {}) },
-        packages: saved.packages || defaultContent.packages,
-        social: { ...defaultContent.social, ...(saved.social || {}) },
-        socialPhotos: saved.socialPhotos || defaultContent.socialPhotos,
-        announcement: { ...defaultContent.announcement, ...(saved.announcement || {}) },
-        slogan: { ...defaultContent.slogan, ...(saved.slogan || {}) },
-        stats: { ...defaultContent.stats, ...(saved.stats || {}) },
-        gaId: saved.gaId ?? defaultContent.gaId,
-      }
+      return mergeWithDefaults(saved)
     }
   } catch {
-    // fallback to default
+    // dosya okunamadı
   }
+
   return defaultContent
 }
 
-export function saveContent(content: SiteContent): void {
+export async function saveContent(content: SiteContent): Promise<void> {
+  // 1. Vercel KV (production)
+  if (hasKV()) {
+    const { kv } = await import('@vercel/kv')
+    await kv.set(KV_KEY, content)
+    return
+  }
+
+  // 2. Lokal dosya (development fallback)
   const dir = path.join(process.cwd(), 'data')
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(contentPath, JSON.stringify(content, null, 2))
