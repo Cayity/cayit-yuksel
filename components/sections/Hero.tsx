@@ -48,7 +48,7 @@ export default function Hero({ locale, messages, content }: Props) {
           <h1
             className="section-title"
             style={{
-              fontSize: `clamp(2.5rem, 8vw, 5rem)`,
+              fontSize: `clamp(2rem, 7vw, 4rem)`,
               lineHeight: content.slogan?.lineHeight ?? 1.0,
               marginBottom: '0'
             }}
