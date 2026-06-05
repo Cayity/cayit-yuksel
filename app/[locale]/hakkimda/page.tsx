@@ -23,20 +23,20 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
       <Navbar locale={locale} messages={messages} content={content} />
 
       {/* Hero */}
-      <section style={{ position: 'relative', minHeight: '60vh', display: 'flex', alignItems: 'flex-end', overflow: 'hidden', paddingTop: '120px' }}>
+      <section style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <Image src={content.aboutImage} alt="Cayit Yüksel" fill style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="100vw" className="grayscale" />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0a0a0a 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.8) 0%, transparent 60%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.85) 60%, #0a0a0a 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.5) 0%, transparent 50%, rgba(10,10,10,0.5) 100%)' }} />
         </div>
-        <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '0 2rem 4rem', width: '100%' }}>
+        <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
             {t.tag as string}
           </p>
-          <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1, letterSpacing: '-0.02em', color: 'white', margin: '0 0 0.5rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
             {t.title as string}
           </h1>
-          <p style={{ color: '#ef4444', fontWeight: 700, fontSize: '1.2rem', letterSpacing: '0.05em', margin: 0 }}>
+          <p style={{ color: '#9ca3af', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
             {t.subtitle as string}
           </p>
         </div>
@@ -117,7 +117,7 @@ export default async function HakkimdaPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <Footer locale={locale} messages={messages} />
+      <Footer locale={locale} messages={messages} content={content} />
     </main>
   )
 }

@@ -130,7 +130,7 @@ export default async function PaketlerPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      <Footer locale={locale} messages={messages} />
+      <Footer locale={locale} messages={messages} content={content} />
     </main>
   )
 }

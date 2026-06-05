@@ -3,7 +3,9 @@
 import { useState } from 'react'
 import { use } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '@/components/sections/Navbar'
+import AnnouncementBar from '@/components/sections/AnnouncementBar'
 import { ChevronRight, Send } from 'lucide-react'
 import trMessages from '@/messages/tr.json'
 import enMessages from '@/messages/en.json'
@@ -183,15 +185,34 @@ export default function BasvuruPage({ params }: { params: Promise<{ locale: stri
   const col2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem 2rem' }
   const colSpan: React.CSSProperties = { gridColumn: '1 / -1' }
 
+  const announcementText = isTR
+    ? '🔥 Sınırlı kontenjan! Hemen başvur ve ilk adımı at.'
+    : '🔥 Limited spots available! Apply now and take your first step.'
+
   return (
     <main style={{ minHeight: '100vh', background: '#161616' }}>
+      <AnnouncementBar text={announcementText} active={true} locale={locale} />
       <Navbar locale={locale} messages={navMessages as unknown as Record<string, Record<string, string>>} />
 
-      {/* Page header */}
-      <div style={{ paddingTop: '120px', paddingBottom: '2rem', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.08)', background: '#111' }}>
-        <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', letterSpacing: '-0.02em', textTransform: 'uppercase' }}>{t.title}</h1>
-        <p style={{ color: '#ef4444', fontWeight: 600, marginTop: '0.4rem' }}>{t.subtitle}</p>
-      </div>
+      {/* Page header — Paketler gibi */}
+      <section style={{ position: 'relative', minHeight: '40vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', paddingTop: '120px' }}>
+        <div style={{ position: 'absolute', inset: 0 }}>
+          <Image src="/images/about.jpg" alt="Başvuru" fill style={{ objectFit: 'cover', objectPosition: 'top' }} sizes="100vw" className="grayscale" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.85) 60%, #161616 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,10,10,0.5) 0%, transparent 50%, rgba(10,10,10,0.5) 100%)' }} />
+        </div>
+        <div style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '60px 2rem' }}>
+          <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+            {locale === 'tr' ? '/// BAŞVURU' : '/// APPLY'}
+          </p>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
+            {t.title}
+          </h1>
+          <p style={{ color: '#9ca3af', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+            {t.subtitle}
+          </p>
+        </div>
+      </section>
 
       <form onSubmit={handleSubmit} style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 

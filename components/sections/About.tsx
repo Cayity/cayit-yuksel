@@ -18,7 +18,7 @@ export default function About({ locale, messages, content }: Props) {
         {/* Tag — ortalı, grid dışında */}
         <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '2rem', textAlign: 'center' }}>{t.tag as string}</p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'flex-start' }}>
+        <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'flex-start' }}>
 
           {/* Image */}
           <div style={{ position: 'relative' }}>
@@ -90,6 +90,15 @@ export default function About({ locale, messages, content }: Props) {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .about-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

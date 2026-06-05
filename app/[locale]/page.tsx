@@ -35,7 +35,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Testimonials locale={locale} messages={messages} content={content} />
       <Social locale={locale} messages={messages} content={content} />
       <ApplyCTA locale={locale} messages={messages} />
-      <Footer locale={locale} messages={messages} />
+      <Footer locale={locale} messages={messages} content={content} />
     </main>
   )
 }

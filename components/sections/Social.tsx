@@ -53,17 +53,17 @@ export default function Social({ locale, messages, content }: Props) {
   return (
     <section id="contact" style={{ padding: '80px 0', background: '#0a0a0a' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: photos.length > 0 ? '1fr 1fr' : '1fr', gap: '4rem', alignItems: 'center' }}>
+        <div className="social-grid" style={{ display: 'grid', gridTemplateColumns: photos.length > 0 ? '1fr 1fr' : '1fr', gap: '4rem', alignItems: 'center' }}>
 
           {/* Sol — başlık + platform kartları */}
           <div>
             <p className="section-tag">{t.tag}</p>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.25, letterSpacing: '-0.02em', color: 'white', marginBottom: '1rem' }}>
               {t.title.split('\n').map((line, i) => (
                 <span key={i} style={{ display: 'block' }}>{line}</span>
               ))}
             </h2>
-            <p style={{ color: '#9ca3af', fontSize: '1rem', marginBottom: '2rem' }}>{t.subtitle}</p>
+            <p style={{ color: '#9ca3af', fontSize: '1rem', marginBottom: '12px' }}>{t.subtitle}</p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {platforms.map((p) => p && (
@@ -74,7 +74,7 @@ export default function Social({ locale, messages, content }: Props) {
                   rel="noopener noreferrer"
                   style={{
                     display: 'flex', alignItems: 'center', gap: '20px', padding: '16px 20px',
-                    background: '#111', border: '1px solid rgba(255,255,255,0.08)',
+                    background: '#111', border: '1px solid rgba(255,255,255,0.25)',
                     textDecoration: 'none', transition: 'border-color 0.2s',
                   }}
                 >
@@ -137,6 +137,12 @@ export default function Social({ locale, messages, content }: Props) {
       <style>{`
         .social-photo-overlay { opacity: 0; color: white; }
         a:hover .social-photo-overlay { opacity: 1; background: rgba(0,0,0,0.5) !important; }
+        @media (max-width: 768px) {
+          .social-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+          }
+        }
       `}</style>
     </section>
   )

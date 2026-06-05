@@ -85,19 +85,14 @@ export default function Stats({ locale, messages, content }: Props) {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '1280px', margin: '0 auto', padding: '0 32px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-
-          {/* Sol başlık */}
+        {/* Desktop */}
+        <div className="stats-desktop" style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
           <div style={{ flexShrink: 0, paddingRight: '40px' }}>
             <h2 style={{ color: 'white', fontWeight: 900, fontSize: '22px', textTransform: 'uppercase', letterSpacing: '0.08em', fontStyle: 'italic', margin: 0, whiteSpace: 'nowrap' }}>
               {t.title}
             </h2>
           </div>
-
-          {/* Divider */}
           <div style={{ width: '1px', height: '56px', background: 'rgba(255,255,255,0.3)', flexShrink: 0 }} />
-
-          {/* Stats - eşit dağılım */}
           <div style={{ flex: 1, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
             {stats.map((stat, i) => (
               <div key={i} style={{ borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.25)' : 'none' }}>
@@ -105,9 +100,33 @@ export default function Stats({ locale, messages, content }: Props) {
               </div>
             ))}
           </div>
+        </div>
 
+        {/* Mobile */}
+        <div className="stats-mobile" style={{ display: 'none', flexDirection: 'column', gap: '16px' }}>
+          <h2 style={{ color: 'white', fontWeight: 900, fontSize: '18px', textTransform: 'uppercase', letterSpacing: '0.08em', fontStyle: 'italic', margin: 0, textAlign: 'center' }}>
+            {t.title}
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0' }}>
+            {stats.map((stat, i) => (
+              <div key={i} style={{
+                borderLeft: i % 2 === 1 ? '1px solid rgba(255,255,255,0.25)' : 'none',
+                borderTop: i >= 2 ? '1px solid rgba(255,255,255,0.25)' : 'none',
+                paddingTop: i >= 2 ? '16px' : '0',
+              }}>
+                <StatItem {...stat} active={active} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .stats-desktop { display: none !important; }
+          .stats-mobile { display: flex !important; }
+        }
+      `}</style>
     </section>
   )
 }

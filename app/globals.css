@@ -113,3 +113,12 @@ body {
   background: var(--red);
   border-radius: 3px;
 }
+
+/* ── Mobil section padding azaltma ── */
+@media (max-width: 1023px) {
+  section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+    margin-top: 0 !important;
+  }
+}

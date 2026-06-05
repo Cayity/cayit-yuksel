@@ -18,6 +18,17 @@ export default function Testimonials({ locale, messages, content }: Props) {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const total = items.length
+  const [cardWidth, setCardWidth] = useState(360)
+
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth < 540) setCardWidth(window.innerWidth - 48)
+      else setCardWidth(360)
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   const startAuto = () => {
     if (intervalRef.current) clearInterval(intervalRef.current)
@@ -59,8 +70,8 @@ export default function Testimonials({ locale, messages, content }: Props) {
     <section style={{ padding: '80px 0', background: '#0d0d0d', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 2rem' }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '48px' }}>
-          <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '32px', gap: '24px' }}>
+          <div style={{ textAlign: 'center' }}>
             <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
               {t?.tag || 'MEMNUNİYET'}
             </p>
@@ -69,28 +80,28 @@ export default function Testimonials({ locale, messages, content }: Props) {
             </h2>
           </div>
 
-          <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
             <button
               onClick={prev}
               style={{
-                width: '44px', height: '44px', borderRadius: '50%',
+                width: '34px', height: '34px', borderRadius: '50%',
                 background: '#fff', border: '2px solid #fff',
                 color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', transition: 'all 0.2s',
               }}
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={16} />
             </button>
             <button
               onClick={next}
               style={{
-                width: '44px', height: '44px', borderRadius: '50%',
+                width: '34px', height: '34px', borderRadius: '50%',
                 background: '#fff', border: '2px solid #fff',
                 color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', transition: 'all 0.2s',
               }}
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
@@ -101,7 +112,7 @@ export default function Testimonials({ locale, messages, content }: Props) {
             style={{
               display: 'flex',
               gap: '20px',
-              transform: `translateX(-${(offset + current) * (360 + 20)}px)`,
+              transform: `translateX(-${(offset + current) * (cardWidth + 20)}px)`,
               transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
             }}
           >
@@ -109,8 +120,8 @@ export default function Testimonials({ locale, messages, content }: Props) {
               <div
                 key={idx}
                 style={{
-                  minWidth: '360px',
-                  maxWidth: '360px',
+                  minWidth: `${cardWidth}px`,
+                  maxWidth: `${cardWidth}px`,
                   background: '#1a1a2e',
                   borderRadius: '16px',
                   padding: '28px',
@@ -167,6 +178,7 @@ export default function Testimonials({ locale, messages, content }: Props) {
             ))}
           </div>
         </div>
+
 
         {/* Dots */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '32px' }}>

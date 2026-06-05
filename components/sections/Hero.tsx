@@ -12,13 +12,13 @@ export default function Hero({ locale, messages, content }: Props) {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-start overflow-hidden"
+      className="relative min-h-screen flex items-center justify-start overflow-hidden hero-section"
       style={{ background: '#0a0a0a' }}
     >
       {/* Background image — daha görünür */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${content.heroImage})`, opacity: 0.65 }}
+        className="absolute inset-0 bg-cover bg-no-repeat hero-bg"
+        style={{ backgroundImage: `url(${content.heroImage})`, opacity: 0.65, backgroundPosition: 'center' }}
       />
 
       {/* Soldan sağa gradient overlay */}
@@ -41,10 +41,10 @@ export default function Hero({ locale, messages, content }: Props) {
 
       {/* Content */}
       <div
-        className="relative z-10 w-full pt-40 pb-24"
+        className="relative z-10 w-full pt-28 pb-24 hero-content"
         style={{ paddingLeft: 'max(32px, calc((100vw - 1280px) / 2 + 32px))', paddingRight: '32px' }}
       >
-        <div style={{ maxWidth: '620px' }}>
+        <div style={{ maxWidth: '620px', width: '100%' }}>
           <h1
             className="section-title"
             style={{
@@ -74,16 +74,27 @@ export default function Hero({ locale, messages, content }: Props) {
             <a href={`/${locale}/basvuru`} className="btn-primary text-base py-4 px-8">
               {t.cta} <ChevronRight size={18} />
             </a>
-            <a href="#packages" className="btn-outline text-base py-4 px-8">
-              {t.cta2}
-            </a>
+            <span className="hero-outline-btn" style={{ display: 'inline-block', padding: '2px', background: 'rgba(255,255,255,0.4)', clipPath: 'polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px))', transition: 'transform 0.1s' }}>
+              <a href="#packages" style={{ display: 'inline-flex', alignItems: 'center', background: '#0a0a0a', color: 'white', fontWeight: 800, fontSize: '0.875rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: 'calc(0.875rem - 2px) calc(2rem - 2px)', textDecoration: 'none', clipPath: 'polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 11px 100%, 0 calc(100% - 11px))' }}>
+                {t.cta2}
+              </a>
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      <style>{`
+        .hero-outline-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.6) !important; }
+        @media (max-width: 1023px) {
+          .hero-section { align-items: flex-start !important; min-height: 70vh !important; }
+          .hero-content { padding-top: 7rem !important; padding-bottom: 2rem !important; }
+          .hero-bg { background-position: 70% center !important; }
+        }
+      `}</style>
+
+      {/* Scroll indicator — sadece desktop */}
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 hidden lg:flex"
         style={{ opacity: 0.3 }}
       >
         <div className="w-px h-12 bg-white animate-pulse" />
