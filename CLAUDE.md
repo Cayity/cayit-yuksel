@@ -5,8 +5,9 @@ Cayit Yüksel (Level 1 Bodybuilding Coach) için TR/EN ikidilli online koçluk t
 
 ## Stack
 - Next.js 16 + TypeScript + Tailwind CSS
-- Veri: `data/content.json` (dosya tabanlı, API route ile yazılır)
+- Veri: `data/content.json` (dosya tabanlı, API route ile yazılır) ⚠️ KALICI DEĞİL — Vercel KV'ye taşınacak
 - Deploy: Vercel — cayityuksel.com
+- Fontlar: Bebas Neue (başlıklar h1-h6) + Inter (body) — next/font/google
 
 ## Sayfalar
 ```
@@ -65,9 +66,20 @@ app/globals.css              — Global stiller + mobil media query'ler
 9. ~~**`CAYİT` tutarsızlığı** — Başvuru sayfası alt başlığında `Cayit` yazıyor (büyük İ yok)~~ ✅
 10. ~~**OG image**~~ ✅ — `app/opengraph-image.tsx` (dinamik, 1200×630, foto05.jpg + metin overlay)
 
-## Yapılacaklar — Yeni Eklenenler
-- **Google Analytics** — `components/Analytics.tsx` hazır, `.env.local` ve Vercel'e `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX` eklenince aktif olur
-- **Meta Pixel** — İstenirse `components/Analytics.tsx`'e eklenebilir
+## ⚠️ KRİTİK — Sonraki Adım: Vercel KV + Blob Entegrasyonu
+Vercel'de dosya sistemi read-only. Admin panelinden yapılan değişiklikler (content.json yazımı, fotoğraf yükleme) kalıcı değil — her deploy'da sıfırlanıyor.
+
+**Çözüm planı:**
+1. **Vercel KV (Redis)** — `content.json` içeriğini KV'de sakla
+   - `lib/content.ts` → `getContent()` KV'den okusun, `saveContent()` KV'ye yazsun
+   - API route: `/api/admin/content` → KV put/get
+2. **Vercel Blob** — Fotoğraf yüklemelerini Blob'da sakla
+   - `app/api/admin/upload/route.ts` → `put()` ile Blob'a yükle
+   - `app/api/admin/images/route.ts` → `list()` ile Blob'dan listele
+3. Vercel Dashboard'da KV ve Blob storage aktif edilmeli (ücretsiz)
+4. Env var'lar: `KV_REST_API_URL`, `KV_REST_API_TOKEN`, `BLOB_READ_WRITE_TOKEN`
+
+**Google Analytics** — `components/Analytics.tsx` hazır, admin paneli Entegrasyon sekmesinden GA ID girilince aktif olur (KV'ye taşınınca kalıcı olacak)
 
 ## Tamamlananlar ✅
 - Admin panel şifre koruması
