@@ -907,7 +907,7 @@ function Card({ title, children, action }: { title: string; children: React.Reac
   return (
     <div style={{ background: '#1e1e1e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 16px rgba(0,0,0,0.3)' }}>
       <div style={{ padding: '14px 24px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(255,255,255,0.02)' }}>
-        <h3 style={{ color: 'white', fontWeight: 700, fontSize: '14px', margin: 0, letterSpacing: '0.02em' }}>{title}</h3>
+        <h3 style={{ color: 'white', fontWeight: 700, fontSize: '20px', margin: 0, letterSpacing: '0.1em' }}>{title}</h3>
         {action}
       </div>
       <div style={{ padding: '24px' }}>{children}</div>
