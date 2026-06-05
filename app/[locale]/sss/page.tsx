@@ -61,7 +61,7 @@ export default async function SSSPage({ params }: { params: Promise<{ locale: st
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
             {faqMessages.tag || (locale === 'tr' ? '/// MERAK EDİLENLER' : '/// FAQ')}
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '0.5rem' }}>
             {(faqMessages.title || (locale === 'tr' ? 'SIKÇA SORULAN SORULAR' : 'FREQUENTLY ASKED QUESTIONS')).split('\n').map((line: string, i: number) => (
               <span key={i} style={{ display: 'block' }}>{line}</span>
             ))}

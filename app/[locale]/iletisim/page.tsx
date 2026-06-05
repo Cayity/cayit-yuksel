@@ -98,7 +98,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
             {isTR ? '/// İLETİŞİM' : '/// CONTACT'}
           </p>
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '0.5rem' }}>
             {isTR ? 'İLETİŞİME GEÇ' : 'GET IN TOUCH'}
           </h1>
           <p style={{ color: '#9ca3af', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -178,7 +178,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
             {/* Konum + Hızlı Yanıt */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div style={{ padding: '2rem', background: '#111', border: '1px solid rgba(255,255,255,0.08)', flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '0.5rem' }}>
                   <MapPin size={20} style={{ color: '#dc2626', flexShrink: 0 }} />
                   <h3 style={{ color: 'white', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>
                     {isTR ? 'HİZMET BÖLGESİ' : 'SERVICE AREA'}
@@ -208,7 +208,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ local
 
         {/* SSS benzeri kısa sorular */}
         <div style={{ maxWidth: '1280px', margin: '3rem auto 0', padding: '0 2rem' }}>
-          <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)', fontWeight: 900, textTransform: 'uppercase', color: 'white', marginBottom: '0.5rem' }}>
             {isTR ? 'SIKÇA SORULANLAR' : 'QUICK FAQ'}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: 'rgba(255,255,255,0.06)' }}>

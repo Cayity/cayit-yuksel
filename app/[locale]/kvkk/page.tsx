@@ -109,7 +109,7 @@ export default async function KVKKPage({ params }: { params: Promise<{ locale: s
 
       <section style={{ paddingTop: '160px', paddingBottom: '100px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 2rem' }}>
-          <p style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '1rem' }}>
+          <p style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
             {t.tag}
           </p>
           <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 900, color: 'white', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
