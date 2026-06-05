@@ -14,13 +14,13 @@ export default function AnnouncementBar({ text, active }: Props) {
       background: '#dc2626',
       color: 'white',
       textAlign: 'center',
-      padding: '6px 16px',
+      padding: '6px 8px',
       fontWeight: 600,
       letterSpacing: '0.03em',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      fontSize: 'clamp(10px, 2.5vw, 13px)',
+      fontSize: '13px',
     }}>
       {text}
     </div>
