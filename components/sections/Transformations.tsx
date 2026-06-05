@@ -27,7 +27,7 @@ export default function Transformations({ locale, messages, content }: Props) {
         {/* Header */}
         <div style={{ marginBottom: '2rem' }}>
           <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', color: '#dc2626', textTransform: 'uppercase', marginBottom: '0.75rem' }}>{t.tag}</p>
-          <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '20px' }}>{t.title}</h2>
+          <h2 style={{ fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '20px' }}>{t.title}</h2>
         </div>
 
         {/* Empty */}

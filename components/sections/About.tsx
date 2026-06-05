@@ -60,7 +60,7 @@ export default function About({ locale, messages, content }: Props) {
 
           {/* Content */}
           <div>
-            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.4rem)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '0.5rem' }}>{t.title as string}</h2>
+            <h2 style={{ fontSize: '1.1rem', fontWeight: 900, textTransform: 'uppercase', lineHeight: 1.05, color: 'white', marginBottom: '0.5rem' }}>{t.title as string}</h2>
             <p style={{ color: '#ef4444', fontWeight: 700, fontSize: '1.1rem', marginBottom: '1.5rem', letterSpacing: '0.05em' }}>{t.subtitle as string}</p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: '#d1d5db', lineHeight: 1.7, marginBottom: '2rem' }}>
@@ -71,7 +71,7 @@ export default function About({ locale, messages, content }: Props) {
 
             {/* Expertise */}
             <div>
-              <h3 style={{ color: 'white', fontWeight: 700, fontSize: '1.8rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <h3 style={{ color: 'white', fontWeight: 700, fontSize: '1.1rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 {t.expertise as string}
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>

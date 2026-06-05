@@ -20,7 +20,7 @@ export default function ApplyCTA({ locale, messages }: Props) {
         <p style={{ fontSize: '1rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: '16px' }}>
           {t.tag}
         </p>
-        <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(2rem, 3.5vw, 2.4rem)', textTransform: 'uppercase', lineHeight: 1.05, marginBottom: '16px' }}>
+        <h2 style={{ color: 'white', fontWeight: 900, fontSize: '1.1rem', textTransform: 'uppercase', lineHeight: 1.05, marginBottom: '16px' }}>
           {t.title}
         </h2>
         <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', marginBottom: '16px' }}>
