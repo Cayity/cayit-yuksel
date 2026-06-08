@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "cayit-yuksel",
-      "runtimeExecutable": "cmd",
-      "runtimeArgs": ["/c", "cd /d C:\\projeler\\cayit-yuksel && npm run dev -- --port 3001"],
-      "port": 3001
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
     }
   ]
 }
