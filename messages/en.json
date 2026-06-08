@@ -25,7 +25,7 @@
   },
   "packages": {
     "tag": "/// PACKAGES",
-    "title": "COACHING SYSTEM\nTAILORED FOR YOU",
+    "title": "PERSONALIZED ONLINE TRAINING\n& NUTRITION PROGRAM",
     "subtitle": "Every individual has different goals. Choose the right package and start your transformation.",
     "popular": "MOST POPULAR",
     "currency": "€",
@@ -55,7 +55,13 @@
         "price": "75",
         "description": "Perfect for beginners who want to start with a structured system.",
         "tag": "👉 Ideal for building a strong foundation",
-        "features": ["training", "goal", "nutrition_basic", "updates", "support"],
+        "features": [
+          "training",
+          "goal",
+          "nutrition_basic",
+          "updates",
+          "support"
+        ],
         "whatsapp_msg": "Hello, I would like to get information about the Starter Package."
       },
       {
@@ -66,7 +72,14 @@
         "price": "125",
         "description": "Most popular package for real and sustainable transformation.",
         "tag": "👉 Best choice for visible and consistent results",
-        "features": ["training", "nutrition_detail", "checkin", "form", "updates", "active_support"],
+        "features": [
+          "training",
+          "nutrition_detail",
+          "checkin",
+          "form",
+          "updates",
+          "active_support"
+        ],
         "whatsapp_msg": "Hello, I would like to get information about the Pro Package."
       },
       {
@@ -77,7 +90,13 @@
         "price": "175",
         "description": "Maximum transformation with full accountability and support.",
         "tag": "👉 For serious clients who want elite-level transformation",
-        "features": ["nutrition_full", "checkin_detail", "updates_frequent", "priority", "max_result"],
+        "features": [
+          "nutrition_full",
+          "checkin_detail",
+          "updates_frequent",
+          "priority",
+          "max_result"
+        ],
         "whatsapp_msg": "Hello, I would like to get information about the Elite Package."
       }
     ]
@@ -85,7 +104,7 @@
   "about": {
     "tag": "/// WHO AM I?",
     "title": "CAYIT YÜKSEL",
-    "subtitle": "Level 1 Bodybuilding Coach",
+    "subtitle": "Online Bodybuilding & Fitness Coach",
     "bio1": "Hi, I'm Cayit Yüksel, a Level 1 Bodybuilding Coach based in Turkey with approximately 10 years of fitness and bodybuilding experience.",
     "bio2": "Through the knowledge and experience I've gained over the years, I work with clients from different countries around the world through an online coaching system. My goal is to turn muscle gain, fat loss, strength increase, and bodybuilding goals into reality in a scientific and sustainable way.",
     "bio3": "My goal is not just physical change; it's to instill discipline, consistency, and a long-term lifestyle transformation.",

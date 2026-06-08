@@ -25,7 +25,7 @@
   },
   "packages": {
     "tag": "/// PAKETLER",
-    "title": "SANA ÖZEL KOÇLUK SİSTEMİ",
+    "title": "SANA ÖZEL ONLİNE ANTRENMAN VE BESLENME PROGRAMI",
     "subtitle": "Her bireyin hedefi farklıdır. Sana en uygun paketi seç ve dönüşümünü başlat.",
     "popular": "EN POPÜLER",
     "currency": "TL",
@@ -55,7 +55,13 @@
         "price": "3.000",
         "description": "Spor hayatına düzenli bir başlangıç yapmak isteyenler için.",
         "tag": "👉 Yeni başlayanlar için sağlam bir temel",
-        "features": ["training", "goal", "nutrition_basic", "updates", "support"],
+        "features": [
+          "training",
+          "goal",
+          "nutrition_basic",
+          "updates",
+          "support"
+        ],
         "whatsapp_msg": "Merhaba, Starter Paket hakkında bilgi almak istiyorum."
       },
       {
@@ -66,7 +72,14 @@
         "price": "5.000",
         "description": "En çok tercih edilen ve en iyi sonuç alınan sistem.",
         "tag": "👉 Gerçek ve sürdürülebilir gelişim isteyenler için",
-        "features": ["training", "nutrition_detail", "checkin", "form", "updates", "active_support"],
+        "features": [
+          "training",
+          "nutrition_detail",
+          "checkin",
+          "form",
+          "updates",
+          "active_support"
+        ],
         "whatsapp_msg": "Merhaba, Pro Paket hakkında bilgi almak istiyorum."
       },
       {
@@ -77,7 +90,13 @@
         "price": "7.000",
         "description": "Maksimum dönüşüm ve birebir takip isteyenler için.",
         "tag": "👉 Ciddi fiziksel dönüşüm hedefleyenler için premium paket",
-        "features": ["nutrition_full", "checkin_detail", "updates_frequent", "priority", "max_result"],
+        "features": [
+          "nutrition_full",
+          "checkin_detail",
+          "updates_frequent",
+          "priority",
+          "max_result"
+        ],
         "whatsapp_msg": "Merhaba, Elite Paket hakkında bilgi almak istiyorum."
       }
     ]
@@ -85,7 +104,7 @@
   "about": {
     "tag": "/// KİMDİR?",
     "title": "CAYİT YÜKSEL",
-    "subtitle": "Level 1 Bodybuilding Coach",
+    "subtitle": "Online Vücut Geliştirme ve Fitness Koçu",
     "bio1": "Merhaba, ben Cayit Yüksel, Türkiye'de yaşayan 1. Kademe Vücut Geliştirme Antrenörüyüm ve yaklaşık 10 yıllık fitness ve vücut geliştirme deneyimine sahibim.",
     "bio2": "Uzun yıllardır edindiğim bilgi ve tecrübelerle, online koçluk hizmeti sunarak dünyanın farklı ülkelerinden danışanlara ulaşan bir sistemle çalışıyorum. Amacım; kas kazanımı, yağ kaybı, kuvvet artışı ve vücut geliştirme hedeflerini bilimsel ve sürdürülebilir bir şekilde gerçeğe dönüştürmektir.",
     "bio3": "Hedefim sadece fiziksel değişim değil; disiplin, istikrar ve uzun vadeli bir yaşam tarzı dönüşümü kazandırmaktır.",
@@ -110,7 +129,7 @@
   },
   "testimonials": {
     "tag": "/// MEMNUNİYET",
-    "title": "KULLANANLAR NE DİYOR?",
+    "title": "DANIŞAN YORUMLARI",
     "empty": "Müşteri yorumları yakında eklenecek."
   },
   "social": {

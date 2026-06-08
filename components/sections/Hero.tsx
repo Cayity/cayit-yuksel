@@ -45,6 +45,9 @@ export default function Hero({ locale, messages, content }: Props) {
         style={{ paddingLeft: 'max(32px, calc((100vw - 1280px) / 2 + 32px))', paddingRight: '32px' }}
       >
         <div style={{ maxWidth: '620px', width: '100%' }}>
+          <p style={{ color: '#dc2626', fontWeight: 800, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>
+            {t.tag}
+          </p>
           <h1
             className="section-title"
             style={{
