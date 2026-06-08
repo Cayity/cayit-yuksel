@@ -14,10 +14,9 @@ const BASE_URL = 'https://cayityuksel.com'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const isTR = locale === 'tr'
-  const title = isTR ? 'Koçluk Paketleri | Cayit Yüksel' : 'Coaching Packages | Cayit Yüksel'
-  const description = isTR
-    ? 'Starter, Pro ve Elite koçluk paketleri. Kişiye özel antrenman ve beslenme programı ile hedeflerine ulaş.'
-    : 'Starter, Pro and Elite coaching packages. Reach your goals with a personalized training and nutrition program.'
+  const { seo } = await getContent()
+  const title = isTR ? seo.packages.titleTR : seo.packages.titleEN
+  const description = isTR ? seo.packages.descTR : seo.packages.descEN
   const url = `${BASE_URL}/${locale}/paketler`
   return {
     title,

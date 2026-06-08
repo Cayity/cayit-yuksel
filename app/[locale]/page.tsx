@@ -21,12 +21,9 @@ const BASE_URL = 'https://cayityuksel.com'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const isTR = locale === 'tr'
-  const title = isTR
-    ? 'Cayit Yüksel | Online Bodybuilding Coach'
-    : 'Cayit Yüksel | Online Bodybuilding Coach'
-  const description = isTR
-    ? '10 yıllık deneyimle kişiye özel antrenman ve beslenme programları. Dünyanın her yerinden online koçluk hizmeti.'
-    : 'Personalized training and nutrition programs with 10 years of experience. Online coaching from anywhere in the world.'
+  const { seo } = await getContent()
+  const title = isTR ? seo.home.titleTR : seo.home.titleEN
+  const description = isTR ? seo.home.descTR : seo.home.descEN
   const url = `${BASE_URL}/${locale}`
   return {
     title,
@@ -39,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       siteName: 'Cayit Yüksel',
       locale: isTR ? 'tr_TR' : 'en_US',
       type: 'website',
-      images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630, alt: 'Cayit Yüksel | Online Bodybuilding Coach' }],
+      images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630, alt: title }],
     },
     twitter: { card: 'summary_large_image', title, description, images: [`${BASE_URL}/opengraph-image`] },
   }

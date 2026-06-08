@@ -12,7 +12,7 @@ interface Props {
   initialContent: SiteContent
 }
 
-type Section = 'general' | 'about' | 'packages' | 'images' | 'transformations' | 'testimonials' | 'sponsor' | 'entegrasyon'
+type Section = 'general' | 'about' | 'packages' | 'images' | 'transformations' | 'testimonials' | 'sponsor' | 'entegrasyon' | 'seo'
 
 const NAV: { key: Section; label: string; icon: React.ReactNode }[] = [
   { key: 'general', label: 'Genel Ayarlar', icon: <Settings size={18} /> },
@@ -22,6 +22,7 @@ const NAV: { key: Section; label: string; icon: React.ReactNode }[] = [
   { key: 'transformations', label: 'Dönüşümler', icon: <Users size={18} /> },
   { key: 'testimonials', label: 'Yorumlar', icon: <Star size={18} /> },
   { key: 'sponsor', label: 'Sponsor', icon: <LayoutDashboard size={18} /> },
+  { key: 'seo', label: 'SEO', icon: <ExternalLink size={18} /> },
   { key: 'entegrasyon', label: 'Entegrasyon', icon: <BarChart2 size={18} /> },
 ]
 
@@ -818,6 +819,51 @@ export default function AdminPanel({ initialContent }: Props) {
                   </div>
                 )}
               </Card>
+            </div>
+          )}
+
+          {section === 'seo' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <p style={{ color: '#9ca3af', fontSize: '13px', margin: 0 }}>
+                Her sayfa için Google arama sonuçlarında görünecek başlık ve açıklamayı düzenleyin.
+                Başlık max <strong style={{ color: '#d1d5db' }}>60</strong>, açıklama max <strong style={{ color: '#d1d5db' }}>160</strong> karakter olmalıdır.
+              </p>
+              {([
+                { key: 'seo.home',     label: 'Ana Sayfa' },
+                { key: 'seo.about',    label: 'Hakkımda' },
+                { key: 'seo.packages', label: 'Paketler' },
+                { key: 'seo.faq',      label: 'SSS' },
+                { key: 'seo.contact',  label: 'İletişim' },
+                { key: 'seo.apply',    label: 'Başvuru' },
+              ] as const).map(({ key, label }) => {
+                const page = getDeep(content, key) as { titleTR: string; titleEN: string; descTR: string; descEN: string }
+                return (
+                  <Card key={key} title={label}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      <div>
+                        <label style={lbl}>Başlık (TR)</label>
+                        <input style={inp} value={page.titleTR} onChange={(e) => update(`${key}.titleTR`, e.target.value)} maxLength={60} />
+                        <span style={{ color: page.titleTR.length > 55 ? '#ef4444' : '#4b5563', fontSize: '11px' }}>{page.titleTR.length}/60</span>
+                      </div>
+                      <div>
+                        <label style={lbl}>Başlık (EN)</label>
+                        <input style={inp} value={page.titleEN} onChange={(e) => update(`${key}.titleEN`, e.target.value)} maxLength={60} />
+                        <span style={{ color: page.titleEN.length > 55 ? '#ef4444' : '#4b5563', fontSize: '11px' }}>{page.titleEN.length}/60</span>
+                      </div>
+                      <div>
+                        <label style={lbl}>Açıklama (TR)</label>
+                        <textarea rows={3} style={{ ...inp, resize: 'none' }} value={page.descTR} onChange={(e) => update(`${key}.descTR`, e.target.value)} maxLength={160} />
+                        <span style={{ color: page.descTR.length > 150 ? '#ef4444' : '#4b5563', fontSize: '11px' }}>{page.descTR.length}/160</span>
+                      </div>
+                      <div>
+                        <label style={lbl}>Açıklama (EN)</label>
+                        <textarea rows={3} style={{ ...inp, resize: 'none' }} value={page.descEN} onChange={(e) => update(`${key}.descEN`, e.target.value)} maxLength={160} />
+                        <span style={{ color: page.descEN.length > 150 ? '#ef4444' : '#4b5563', fontSize: '11px' }}>{page.descEN.length}/160</span>
+                      </div>
+                    </div>
+                  </Card>
+                )
+              })}
             </div>
           )}
 

@@ -15,10 +15,9 @@ const BASE_URL = 'https://cayityuksel.com'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const isTR = locale === 'tr'
-  const title = isTR ? 'İletişim | Cayit Yüksel' : 'Contact | Cayit Yüksel'
-  const description = isTR
-    ? 'Cayit Yüksel ile iletişime geçin. WhatsApp, e-posta veya Instagram üzerinden ulaşın.'
-    : 'Get in touch with Cayit Yüksel. Reach via WhatsApp, email or Instagram.'
+  const { seo } = await getContent()
+  const title = isTR ? seo.contact.titleTR : seo.contact.titleEN
+  const description = isTR ? seo.contact.descTR : seo.contact.descEN
   const url = `${BASE_URL}/${locale}/iletisim`
   return {
     title,

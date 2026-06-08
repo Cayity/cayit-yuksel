@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
+import { getContent } from '@/lib/content'
 
 const BASE_URL = 'https://cayityuksel.com'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const isTR = locale === 'tr'
-  const title = isTR ? 'Başvuru Formu | Cayit Yüksel' : 'Apply | Cayit Yüksel'
-  const description = isTR
-    ? 'Cayit Yüksel ile online koçluk için başvur. Kişiye özel program için ilk adımı at.'
-    : 'Apply for online coaching with Cayit Yüksel. Take the first step towards your personalized program.'
+  const { seo } = await getContent()
+  const title = isTR ? seo.apply.titleTR : seo.apply.titleEN
+  const description = isTR ? seo.apply.descTR : seo.apply.descEN
   const url = `${BASE_URL}/${locale}/basvuru`
   return {
     title,

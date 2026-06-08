@@ -69,6 +69,14 @@ export interface SiteContent {
     active: boolean
   }
   gaId: string
+  seo: {
+    home:     { titleTR: string; titleEN: string; descTR: string; descEN: string }
+    about:    { titleTR: string; titleEN: string; descTR: string; descEN: string }
+    packages: { titleTR: string; titleEN: string; descTR: string; descEN: string }
+    faq:      { titleTR: string; titleEN: string; descTR: string; descEN: string }
+    contact:  { titleTR: string; titleEN: string; descTR: string; descEN: string }
+    apply:    { titleTR: string; titleEN: string; descTR: string; descEN: string }
+  }
 }
 
 const contentPath = path.join(process.cwd(), 'data', 'content.json')
@@ -155,6 +163,44 @@ const defaultContent: SiteContent = {
     active: true
   },
   gaId: '',
+  seo: {
+    home: {
+      titleTR: 'Cayit Yüksel | Online Vücut Geliştirme ve Fitness Koçu',
+      titleEN: 'Cayit Yüksel | Online Bodybuilding & Fitness Coach',
+      descTR: 'Türkiye\'nin online vücut geliştirme koçu. 10 yıllık deneyimle kişiye özel antrenman ve beslenme programı. Dünyanın her yerinden online koçluk.',
+      descEN: 'Online bodybuilding coach from Turkey. Personalized training & nutrition programs with 10 years of experience. Online coaching worldwide.',
+    },
+    about: {
+      titleTR: 'Hakkımda | Cayit Yüksel — Level 1 Vücut Geliştirme Antrenörü',
+      titleEN: 'About | Cayit Yüksel — Level 1 Bodybuilding Coach',
+      descTR: 'Cayit Yüksel kimdir? 10 yıllık vücut geliştirme ve fitness deneyimi, sertifikalar ve online koçluk sistemi.',
+      descEN: 'Who is Cayit Yüksel? 10 years of bodybuilding & fitness experience, certifications and online coaching system.',
+    },
+    packages: {
+      titleTR: 'Koçluk Paketleri | Online Antrenman ve Beslenme Programı',
+      titleEN: 'Coaching Packages | Online Training & Nutrition Program',
+      descTR: 'Starter, Pro ve Elite online koçluk paketleri. Kişiye özel antrenman programı ve beslenme planı ile hedefine ulaş.',
+      descEN: 'Starter, Pro and Elite online coaching packages. Reach your goals with a personalized training program and nutrition plan.',
+    },
+    faq: {
+      titleTR: 'Sıkça Sorulan Sorular | Online Fitness Koçluğu — Cayit Yüksel',
+      titleEN: 'FAQ | Online Fitness Coaching — Cayit Yüksel',
+      descTR: 'Online koçluk nasıl çalışır? Fiyatlar, süreç ve sonuçlar hakkında merak ettiğiniz her şey.',
+      descEN: 'How does online coaching work? Everything you want to know about prices, process and results.',
+    },
+    contact: {
+      titleTR: 'İletişim | Cayit Yüksel Online Koçluk',
+      titleEN: 'Contact | Cayit Yüksel Online Coaching',
+      descTR: 'Cayit Yüksel ile iletişime geçin. WhatsApp, e-posta veya Instagram üzerinden ulaşın.',
+      descEN: 'Get in touch with Cayit Yüksel. Reach via WhatsApp, email or Instagram.',
+    },
+    apply: {
+      titleTR: 'Başvuru Formu | Online Koçluk Programına Katıl',
+      titleEN: 'Apply | Join the Online Coaching Program',
+      descTR: 'Cayit Yüksel\'in online koçluk programına başvur. Kişiye özel antrenman ve beslenme için ilk adımı at.',
+      descEN: 'Apply for Cayit Yüksel\'s online coaching program. Take the first step towards personalized training and nutrition.',
+    },
+  },
 }
 
 function mergeWithDefaults(saved: Partial<SiteContent>): SiteContent {
@@ -169,6 +215,14 @@ function mergeWithDefaults(saved: Partial<SiteContent>): SiteContent {
     slogan: { ...defaultContent.slogan, ...(saved.slogan || {}) },
     stats: { ...defaultContent.stats, ...(saved.stats || {}) },
     gaId: saved.gaId ?? defaultContent.gaId,
+    seo: {
+      home:     { ...defaultContent.seo.home,     ...(saved.seo?.home     || {}) },
+      about:    { ...defaultContent.seo.about,    ...(saved.seo?.about    || {}) },
+      packages: { ...defaultContent.seo.packages, ...(saved.seo?.packages || {}) },
+      faq:      { ...defaultContent.seo.faq,      ...(saved.seo?.faq      || {}) },
+      contact:  { ...defaultContent.seo.contact,  ...(saved.seo?.contact  || {}) },
+      apply:    { ...defaultContent.seo.apply,    ...(saved.seo?.apply    || {}) },
+    },
   }
 }
 
