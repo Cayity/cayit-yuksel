@@ -53,8 +53,37 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const messages = (await import(`@/messages/${locale}.json`)).default
   const content = await getContent()
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Cayit Yüksel',
+    url: BASE_URL,
+    image: `${BASE_URL}/opengraph-image`,
+    jobTitle: 'Online Bodybuilding Coach',
+    description: locale === 'tr'
+      ? '10 yıllık deneyimle kişiye özel antrenman ve beslenme programları sunan Level 1 Vücut Geliştirme Antrenörü.'
+      : 'Level 1 Bodybuilding Coach offering personalized training and nutrition programs with 10 years of experience.',
+    sameAs: [
+      content.social.instagram.url,
+      content.social.tiktok?.url,
+      content.social.youtube?.url,
+    ].filter(Boolean),
+    knowsAbout: ['Bodybuilding', 'Personal Training', 'Nutrition', 'Online Coaching', 'Fitness'],
+    offers: content.packages.map((pkg) => ({
+      '@type': 'Offer',
+      name: locale === 'tr' ? `${pkg.name} Paketi` : `${pkg.name} Package`,
+      description: pkg.description,
+      price: pkg.price,
+      priceCurrency: 'TRY',
+    })),
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <AnnouncementBar text={locale === 'tr' ? content.announcement.tr : content.announcement.en} active={content.announcement.active} locale={locale} />
       <Navbar locale={locale} messages={messages} content={content} />
       <Hero locale={locale} messages={messages} content={content} />
